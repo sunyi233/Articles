@@ -1,0 +1,15 @@
+using System.Net.Http;
+
+using (var BittrexHC = new System.Net.Http.HttpClient())
+{
+    System.Net.ServicePointManager.SecurityProtocol = System.Net.SecurityProtocolType.Tls12;
+
+    BCHPrices["USD"] = 0;
+    BTCPrices["USD"] = Convert.ToDecimal(BittrexHC.GetStringAsync(new Uri("https://api.bittrex.com/api/v1.1/public/getticker?market=USD-BTC")).Result.Split(':')[6].Split('.')[0]);
+    ETHPrices["USD"] = Convert.ToDecimal(BittrexHC.GetStringAsync(new Uri("https://api.bittrex.com/api/v1.1/public/getticker?market=USD-ETH")).Result.Split(':')[6].Split('.')[0]);
+    LTCPrices["USD"] = Convert.ToDecimal(BittrexHC.GetStringAsync(new Uri("https://api.bittrex.com/api/v1.1/public/getticker?market=USD-LTC")).Result.Split(':')[6].Split('.')[0]);
+}
+
+
+
+
