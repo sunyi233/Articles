@@ -1,0 +1,79 @@
+class Intro : AppCompatActivity(), GoogleApiClient.OnConnectionFailedListener
+{
+    private lateinit var PlatinumGAC : GoogleApiClient
+
+    private fun GetGATForRedirection()
+    {
+        AccountManager.get(this).getAuthToken(AccountManager.get(this).accounts.get(0), "oauth2: " + Scopes.EMAIL, Bundle(), this, OnTokenAcquired(), null)
+    }
+
+    private inner class OnTokenAcquired : AccountManagerCallback<Bundle>
+    {
+        override fun run(result: AccountManagerFuture<Bundle>)
+        {
+            try
+            {
+                CheckMembershipAndRedirect(result.result.getString(AccountManager.KEY_AUTHTOKEN).toString())
+            }
+            catch (e: Exception)
+            {
+                throw RuntimeException(e)
+            }
+        }
+    }
+
+    private fun CheckMembershipAndRedirect(Token: String)
+    {
+
+
+
+        Toast.makeText(this, Token, Toast.LENGTH_SHORT).show()
+
+    }
+
+    override fun onCreate(savedInstanceState: Bundle?)
+    {
+        super.onCreate(savedInstanceState)
+        setContentView(R.layout.activity_intro)
+
+        // check Account pairing
+        val MyAccount = GoogleSignIn.getLastSignedInAccount(this)
+        if(MyAccount != null)
+            GetGATForRedirection()
+
+        (findViewById(R.id.SignIn) as Button).setOnClickListener()
+        {
+            PlatinumGAC = GoogleApiClient.Builder(this).enableAutoManage(this, this).addApi(Auth.GOOGLE_SIGN_IN_API, GoogleSignInOptions.Builder(GoogleSignInOptions.DEFAULT_SIGN_IN).requestEmail().build()).build()
+            startActivityForResult(Auth.GoogleSignInApi.getSignInIntent(PlatinumGAC), 0)
+        }
+    }
+
+    override fun onConnectionFailed(p0: ConnectionResult) // when failed to add api
+    {
+        //Toast.makeText(this, "Failed to sign in. Try again", Toast.LENGTH_SHORT).show()
+    }
+
+    override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) // when succedded to start activity
+    {
+        super.onActivityResult(requestCode, resultCode, data)
+
+        // finish GAC
+        PlatinumGAC.stopAutoManage(this)
+        PlatinumGAC.disconnect();
+
+        // check error
+        /*
+        if (requestCode != 0)
+        {
+            Toast.makeText(this, "Failed to sign in. Try again", Toast.LENGTH_SHORT).show()
+            return
+        }
+        */
+        //val result = Auth.GoogleSignInApi.getSignInResultFromIntent(data)
+        if (Auth.GoogleSignInApi.getSignInResultFromIntent(data).isSuccess == false)
+            return
+
+        // start checking
+        GetGATForRedirection()
+    }
+}
