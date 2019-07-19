@@ -2,11 +2,6 @@ class Intro : AppCompatActivity(), GoogleApiClient.OnConnectionFailedListener
 {
     private lateinit var PlatinumGAC : GoogleApiClient
 
-    private fun GetGATForRedirection()
-    {
-        AccountManager.get(this).getAuthToken(AccountManager.get(this).accounts.get(0), "oauth2: " + Scopes.EMAIL, Bundle(), this, OnTokenAcquired(), null)
-    }
-
     private inner class OnTokenAcquired : AccountManagerCallback<Bundle>
     {
         override fun run(result: AccountManagerFuture<Bundle>)
@@ -29,6 +24,12 @@ class Intro : AppCompatActivity(), GoogleApiClient.OnConnectionFailedListener
 
         Toast.makeText(this, Token, Toast.LENGTH_SHORT).show()
 
+
+
+
+
+
+
     }
 
     override fun onCreate(savedInstanceState: Bundle?)
@@ -39,18 +40,13 @@ class Intro : AppCompatActivity(), GoogleApiClient.OnConnectionFailedListener
         // check Account pairing
         val MyAccount = GoogleSignIn.getLastSignedInAccount(this)
         if(MyAccount != null)
-            GetGATForRedirection()
+            AccountManager.get(this).getAuthToken(MyAccount?.account, "oauth2: " + Scopes.EMAIL, Bundle(), this, OnTokenAcquired(), null)
 
         (findViewById(R.id.SignIn) as Button).setOnClickListener()
         {
             PlatinumGAC = GoogleApiClient.Builder(this).enableAutoManage(this, this).addApi(Auth.GOOGLE_SIGN_IN_API, GoogleSignInOptions.Builder(GoogleSignInOptions.DEFAULT_SIGN_IN).requestEmail().build()).build()
             startActivityForResult(Auth.GoogleSignInApi.getSignInIntent(PlatinumGAC), 0)
         }
-    }
-
-    override fun onConnectionFailed(p0: ConnectionResult) // when failed to add api
-    {
-        //Toast.makeText(this, "Failed to sign in. Try again", Toast.LENGTH_SHORT).show()
     }
 
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) // when succedded to start activity
@@ -62,18 +58,15 @@ class Intro : AppCompatActivity(), GoogleApiClient.OnConnectionFailedListener
         PlatinumGAC.disconnect();
 
         // check error
-        /*
-        if (requestCode != 0)
-        {
-            Toast.makeText(this, "Failed to sign in. Try again", Toast.LENGTH_SHORT).show()
-            return
-        }
-        */
-        //val result = Auth.GoogleSignInApi.getSignInResultFromIntent(data)
         if (Auth.GoogleSignInApi.getSignInResultFromIntent(data).isSuccess == false)
             return
 
         // start checking
-        GetGATForRedirection()
+        AccountManager.get(this).getAuthToken(GoogleSignIn.getLastSignedInAccount(this)?.account, "oauth2: " + Scopes.EMAIL, Bundle(), this, OnTokenAcquired(), null)
+    }
+
+    override fun onConnectionFailed(p0: ConnectionResult) // when failed to add api
+    {
+        //Toast.makeText(this, "Failed to sign in. Try again", Toast.LENGTH_SHORT).show()
     }
 }
