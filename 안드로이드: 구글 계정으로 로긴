@@ -1,4 +1,4 @@
-구글 계정으로 로긴하는 안드로이드 앱 만들기
+구글 계정으로 로긴하는 안드로이드 앱 만들기 https://developers.google.com/identity/
 
 1. Android Studio에서 app id를 정한다.
 2. Android Studio에서 Signed APK용 키(*.jks)를 만든다.
@@ -12,16 +12,3 @@
 6. Signed APK가 나온다.
 
 7. APK를 Google Play Console에 올린다.
-
-
-
-
-
-
-
-https://developers.google.com/identity/
-
-
-
-
-
