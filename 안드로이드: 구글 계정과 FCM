@@ -1,0 +1,89 @@
+package com.coinville.coinvil
+
+import android.content.Intent
+import androidx.appcompat.app.AppCompatActivity
+import android.os.Bundle
+import android.widget.Toast
+import com.android.volley.Request
+import com.android.volley.Response
+import com.android.volley.toolbox.StringRequest
+import com.android.volley.toolbox.Volley
+import com.google.android.gms.auth.api.signin.GoogleSignIn
+import com.google.android.gms.auth.api.signin.GoogleSignInAccount
+import com.google.android.gms.auth.api.signin.GoogleSignInClient
+import com.google.android.gms.auth.api.signin.GoogleSignInOptions
+import com.google.android.gms.common.api.ApiException
+import com.google.firebase.iid.FirebaseInstanceId
+import com.google.android.gms.tasks.OnCompleteListener
+
+class IntroActivity : AppCompatActivity()
+{
+    private  fun StartGoogleIDFCMTokenIntegration(GoogleAccountID: String?)
+    {
+        val GoogleIDFCMTokenIntegrationSR = StringRequest(Request.Method.GET, "http://coinville.ph/TempAPI/Test.aspx?" + GoogleAccountID + Singleton.FCMToken, Response.Listener<String>
+        {
+            response ->
+
+            //response
+        },
+        Response.ErrorListener
+        {
+            //Toast.makeText(this, "Error", Toast.LENGTH_SHORT).show()
+        })
+        Volley.newRequestQueue(this).add(GoogleIDFCMTokenIntegrationSR)
+    }
+
+    override fun onCreate(savedInstanceState: Bundle?)
+    {
+        super.onCreate(savedInstanceState)
+        setContentView(R.layout.activity_intro)
+
+        FirebaseInstanceId.getInstance().instanceId.addOnCompleteListener(OnCompleteListener
+        {
+            task ->
+
+            // check task
+            if (!task.isSuccessful)
+            {
+                finish()
+                return@OnCompleteListener
+            }
+
+            // FCM Token
+            Singleton.FCMToken = task.result?.token.toString()
+
+            // MyGoogleAccount
+            val MyGoogleAccount: GoogleSignInAccount? = GoogleSignIn.getLastSignedInAccount(this)
+            if(MyGoogleAccount == null)
+            {
+                val CoinvilGSIC: GoogleSignInClient = GoogleSignIn.getClient(this, GoogleSignInOptions.Builder(GoogleSignInOptions.DEFAULT_SIGN_IN).requestIdToken(Singleton.OAuthClientID).requestEmail().build())
+                startActivityForResult(CoinvilGSIC.signInIntent, 0)
+            }
+            else
+            {
+                StartGoogleIDFCMTokenIntegration(MyGoogleAccount.id)
+            }
+        })
+    }
+
+    public override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?)
+    {
+        super.onActivityResult(requestCode, resultCode, data)
+
+        if (requestCode != 0)
+            return
+
+        val task = GoogleSignIn.getSignedInAccountFromIntent(data)
+        try
+        {
+            StartGoogleIDFCMTokenIntegration(task.getResult(ApiException::class.java)?.id)
+        }
+        catch (e: ApiException)
+        {
+            //Toast.makeText(this, "Error when pairing", Toast.LENGTH_SHORT).show()
+            // Google Sign In failed, update UI appropriately
+            //Log.w(TAG, "Google sign in failed", e)
+            // ...
+        }
+    }
+}
