@@ -12,3 +12,11 @@
 6. Signed APK가 나온다.
 
 7. APK를 Google Play Console에 올린다.
+
+
+
+
+
+
+구글플레이 콘솔의 Release management의 App sigining에서 얻은 app sigining fingerprint를
+Google api의 credentilas의 OAuth client에 먹여 보았어요.
