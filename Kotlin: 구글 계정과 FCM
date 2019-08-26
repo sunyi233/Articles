@@ -1,8 +1,10 @@
 package com.coinville.coinvil
 
 import android.content.Intent
+import android.net.Uri
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import android.view.Window
 import android.widget.Toast
 import com.android.volley.Request
 import com.android.volley.Response
@@ -15,28 +17,50 @@ import com.google.android.gms.auth.api.signin.GoogleSignInOptions
 import com.google.android.gms.common.api.ApiException
 import com.google.firebase.iid.FirebaseInstanceId
 import com.google.android.gms.tasks.OnCompleteListener
+import kotlinx.android.synthetic.main.activity_intro.*
+import com.google.android.gms.tasks.Task
+import androidx.annotation.NonNull
 
 class IntroActivity : AppCompatActivity()
 {
-    private  fun StartGoogleIDFCMTokenIntegration(GoogleAccountID: String?)
+    private  fun GetKYCStatusAndRedirect(GoogleAccountID:String?)
     {
-        val GoogleIDFCMTokenIntegrationSR = StringRequest(Request.Method.GET, "http://coinville.ph/TempAPI/Test.aspx?" + GoogleAccountID + Singleton.FCMToken, Response.Listener<String>
+        val GetKYCStatusSR = StringRequest(Request.Method.GET, Singleton.GetKYCStatusURL + "GAID=" + GoogleAccountID,
+        Response.Listener<String>
         {
             response ->
 
-            //response
+            if(response == "Approved")
+            {
+                startActivity(Intent(this, MainActivity::class.java))
+                finish()
+            }
+            else
+            {
+                // show button
+
+
+
+
+
+            }
         },
         Response.ErrorListener
         {
-            //Toast.makeText(this, "Error", Toast.LENGTH_SHORT).show()
+            finish()
         })
-        Volley.newRequestQueue(this).add(GoogleIDFCMTokenIntegrationSR)
+        Volley.newRequestQueue(this).add(GetKYCStatusSR)
     }
 
     override fun onCreate(savedInstanceState: Bundle?)
     {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_intro)
+
+        KYCButton.setOnClickListener()
+        {
+            startActivity(Intent(Intent.ACTION_VIEW, Uri.parse("http://kyc.coinville.ph/?" + Singleton.GoogleAccountIDToken)))
+        }
 
         FirebaseInstanceId.getInstance().instanceId.addOnCompleteListener(OnCompleteListener
         {
@@ -53,15 +77,17 @@ class IntroActivity : AppCompatActivity()
             Singleton.FCMToken = task.result?.token.toString()
 
             // MyGoogleAccount
-            val MyGoogleAccount: GoogleSignInAccount? = GoogleSignIn.getLastSignedInAccount(this)
+            val MyGoogleAccount = GoogleSignIn.getLastSignedInAccount(this)
             if(MyGoogleAccount == null)
             {
-                val CoinvilGSIC: GoogleSignInClient = GoogleSignIn.getClient(this, GoogleSignInOptions.Builder(GoogleSignInOptions.DEFAULT_SIGN_IN).requestIdToken(Singleton.OAuthClientID).requestEmail().build())
-                startActivityForResult(CoinvilGSIC.signInIntent, 0)
+                val CoinvilGSIO = GoogleSignInOptions.Builder(GoogleSignInOptions.DEFAULT_SIGN_IN).requestIdToken(Singleton.OAuthClientID).requestEmail().build()
+                val CoinvilGSI = GoogleSignIn.getClient(this, CoinvilGSIO);
+                startActivityForResult(CoinvilGSI.signInIntent, 0)
             }
             else
             {
-                StartGoogleIDFCMTokenIntegration(MyGoogleAccount.id)
+                Singleton.GoogleAccountIDToken = MyGoogleAccount.idToken
+                GetKYCStatusAndRedirect(MyGoogleAccount.id)
             }
         })
     }
@@ -73,17 +99,33 @@ class IntroActivity : AppCompatActivity()
         if (requestCode != 0)
             return
 
-        val task = GoogleSignIn.getSignedInAccountFromIntent(data)
+        val MyGoogleAccount = GoogleSignIn.getSignedInAccountFromIntent(data).getResult(ApiException::class.java)
+        Singleton.GoogleAccountIDToken = MyGoogleAccount?.idToken
+        GetKYCStatusAndRedirect(MyGoogleAccount?.id)
+    }
+}
+
+
+
+/*
+
+
+
+
+        //GoogleAccount: GoogleSignInAccount?
+
+
+
+
         try
         {
-            StartGoogleIDFCMTokenIntegration(task.getResult(ApiException::class.java)?.id)
         }
         catch (e: ApiException)
         {
-            //Toast.makeText(this, "Error when pairing", Toast.LENGTH_SHORT).show()
-            // Google Sign In failed, update UI appropriately
-            //Log.w(TAG, "Google sign in failed", e)
-            // ...
+            //Toast.makeText(this, e.toString(), Toast.LENGTH_SHORT).show()
         }
-    }
-}
+
+
+
+
+*/
