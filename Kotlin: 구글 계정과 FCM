@@ -39,10 +39,7 @@ class IntroActivity : AppCompatActivity()
 
                 }
             },
-            Response.ErrorListener
-            {
-                finish()
-            })
+            Response.ErrorListener{finish()})
         Volley.newRequestQueue(this).add(GetKYCStatusSR)
     }
 
@@ -56,10 +53,7 @@ class IntroActivity : AppCompatActivity()
                 startActivity(Intent(this, MainActivity::class.java))
                 finish()
             },
-            Response.ErrorListener
-            {
-                finish()
-            })
+            Response.ErrorListener{finish()})
         Volley.newRequestQueue(this).add(IntegrateGoogleAccountAndFCMTokenSR)
     }
 
