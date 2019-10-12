@@ -1,0 +1,7 @@
+AWS의 Lightsail은 편리한 개발 환영을 제공한다. Visual Studio Code로 쉽게 개발할 수 있는 환경을 꾸밀 수 있다.
+
+1. AWS에 가서 원하는 조건으로 Lightsail을 설치한다.
+2. Lightsail의 pem file을 얻는다.
+3. VSCode에 sftp를 설치한다.
+    https://marketplace.visualstudio.com/items?itemName=liximomo.sftp
+4. 위에서 받은 pem file로 서버에 로긴한다.
