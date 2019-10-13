@@ -1,0 +1,45 @@
+- Ubuntu Nginx 설치
+1. https://swiftcoding.org/installing-nginx#installing
+2. Nginx 설치 정보 확인 : sudo apt-cache policy nginx
+3. 설치되어 있는 패키지들 업그레이드 : sudo apt-get update
+4. Nginx 설치 : sudo apt-get install nginx
+5. Nginx 버전 확인 : nginx -v
+6. Public IP 웹브라우저에 입력 후 "Welcome to nginx!" 메시지 확인
+
+- Ubuntu PHP 설치
+* nginx가 php 해석 하지 못하고 php-fpm 이 대신 해석하여 php-fpm 설치 필요. php-fpm 설치하면 php도 자동 설치.
+1. https://swiftcoding.org/installing-php7-2-fpm 
+2. php 설치 정보 확인 : apt-cache policy php
+3. apt 패키지 정보 업데이트 : sudo apt-get update
+4. php 7.2 fpm 설치 : sudo apt-get install php7.2-fpm
+5. 자주 쓰이는 중요한 php 모듈 설치 : sudo apt-get install php7.2-cli php7.2-curl php7.2-gd php7.2-mysql php7.2-mbstring zip unzip
+6. PHP 버전 확인 : php -v
+7. PHP FPM 시작 sudo service php7.2-fpm start
+
+- 환경설정
+1. https://swiftcoding.org/installing-php7-2-fpm
+2. Nginx 설정 변경
+  - nginx 환경설정 파일 수정 : sudo vi /etc/nginx/sites-enabled/default 
+    server { 
+        listen 3000 default_server; 
+        listen [::]:3000 default_server; 
+        root /var/www/html; 
+        index index.php index.html index.htm index.nginx-debian.html ; 
+        server_name _;
+	    location / {
+	        try_files $uri $uri/ =404; 
+	    }
+	    location ~ \.php$ {
+	        include snippets/fastcgi-php.conf;
+	        fastcgi_pass unix:/run/php/php7.2-fpm.sock;
+	        fastcgi_param SCRIPT_FILENAME $document_root$fastcgi_script_name;
+	        include fastcgi_params; 
+	        fastcgi_read_timeout 300;
+	    }
+	    location ~ /\.ht {
+	        deny all;
+	    }
+	}
+3. Nginx 재시작 : sudo service nginx restart
+4. /var/www/html 경로에 index.php 파일 생성
+5. 테스트 : http://18.218.5.27:3000/index.php
