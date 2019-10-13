@@ -4,4 +4,15 @@ AWS의 Lightsail은 편리한 개발 환영을 제공한다. Visual Studio Code�
 2. Lightsail의 pem file을 얻는다.
 3. VSCode에 sftp를 설치한다.
     https://marketplace.visualstudio.com/items?itemName=liximomo.sftp
+    아래와 같이 'sftp.json' 파일을 만든다.
+        {
+            "name": "",
+            "host": "",
+            "protocol": "sftp",
+            "port": 22,
+            "username": "",
+            "remotePath": "/opt/bitnami/nginx/html/",
+            "uploadOnSave": true,
+            "privateKeyPath": ""
+        }
 4. 위에서 받은 pem file로 서버에 로긴한다.
