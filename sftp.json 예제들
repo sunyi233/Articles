@@ -1,0 +1,19 @@
+{
+    "name": "",
+
+    "host": "",
+    "protocol": "sftp",
+    "port": 1234,
+    "algorithms": {"cipher":["aes128-cbc"]},
+
+    "username": "",
+    "password": "",
+
+    "remotePath": "",
+    "watcher": {"files": "**", "autoUpload": true, "autoDelete": true},
+    "syncMode": "full",
+
+    "uploadOnSave": true
+}
+
+
