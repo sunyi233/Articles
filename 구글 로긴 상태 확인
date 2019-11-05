@@ -1,0 +1,7 @@
+<img style="display:none;"
+onload="alert('Google 로긴 상태');"
+onerror="show_login_status('Google', false)"
+src="https://accounts.google.com/CheckCookie?continue=https%3A%2F%2Fwww.google.com%2Fintl%2Fen%2Fimages%2Flogos%2Faccounts_logo.png&followup=https%3A%2F%2Fwww.google.com%2Fintl%2Fen%2Fimages%2Flogos%2Faccounts_logo.png&chtml=LoginDoneHtml&checkedDomains=youtube&checkConnection=youtube%3A291%3A1"
+/>            
+
+이 코드를 html에 넣으면 이 페이지의 구글 로긴 상태를 알 수 있습니다.
