@@ -18,3 +18,9 @@
 
         "uploadOnSave": true
     }
+5. 서버에 들어 가서 '/opt/bitnami/nginx/html/'에 가서 'rm -rf *' 명령을 하면 폴더가 청소된다.
+
+
+
+
+
