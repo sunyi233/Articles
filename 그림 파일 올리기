@@ -1,0 +1,45 @@
+HTML과 JS로 그림 파일 올리기
+
+PhotoB 버튼을 눌러서 그림을 올리면 base64 text로 가공되어서 서버로 보내진다.
+
+<div style="width:50%; padding-left:10px;">
+    <input id='PhotoB' type="file" onchange="LoadPhoto(this)">
+    <img id='ViewPhotoB' style="width:100%;margin-top:20px;vertical-align:top;">
+</div>
+<script>
+    function LoadPhoto(PhotoInput)
+    {
+        var PhotoFR = new FileReader();
+        PhotoFR.readAsDataURL(PhotoInput.files[0]);
+        PhotoFR.onloadend = event =>
+        {
+            var PhotoImg = new Image();
+            PhotoImg.src = PhotoFR.result;
+            PhotoImg.onload = function()
+            {
+                var PhotoCanvas = document.createElement('canvas');
+                PhotoCanvas.width = 600;
+                PhotoCanvas.height = (PhotoImg.height * PhotoCanvas.width) / PhotoImg.width;
+                PhotoCanvas.getContext("2d").drawImage(this, 0, 0, PhotoCanvas.width, PhotoCanvas.height);
+
+                var PhotoFD = new FormData();
+                PhotoFD.append("PhotoName", PhotoInput.id);
+                PhotoFD.append("Src", PhotoCanvas.toDataURL('image/jpeg', 0.5));
+
+                var PhotoXHR = new XMLHttpRequest();
+                PhotoXHR.open("POST", "/api/UploadPhoto.php");
+                PhotoXHR.send(PhotoFD);
+                PhotoXHR.onload = function ()
+                {
+                    if(PhotoXHR.responseText == '')
+                    {
+                        location = '/';
+                        return;
+                    }
+
+                    document.getElementById('View' + PhotoInput.id).src = PhotoXHR.responseText;
+                };
+            }
+        };
+    }
+</script>
