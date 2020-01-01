@@ -1,0 +1,18 @@
+1. git 다운로드 및 설치
+  - https://git-scm.com/download/win
+
+2. 원하는 directory로 이동 -> 우 클릭 -> Git Bash 실행
+
+3. clone 명령어를 통해 레파지토리 복사 
+  - git clone https://github.com/koreanawesomeguy/ReformaLab.git
+
+4. git init
+5. git status : 올라갈 파일이 있는 지 현재 폴더에 있는 파일들을 확인
+6. git add . : 로컬 저장소에 파일들을 올려준다. 
+7. git commit -m "메시지 내용" : commit 
+8. git remote -v : 로컬저장소 - 원격 저장소로 연결
+9. git push origin master : commit 해두었던 파일들을 원격저장소에 올림
+
+* 참고 자료 
+  . https://evan-moon.github.io/2019/07/25/git-tutorial/
+  . https://coding-factory.tistory.com/244
