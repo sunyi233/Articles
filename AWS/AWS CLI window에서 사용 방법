@@ -1,0 +1,24 @@
+AWS SDK for Python (Boto)를 기반으로 되어 있으며, AWS의 모든 서비스를 관리할 수 있습니다.
+
+1. AWS CLI 설치
+  1). Windows용 AWS CLI MSI 설치 관리자(64비트) 다운로드 : https://s3.amazonaws.com/aws-cli/AWSCLI64PY3.msi
+  2). AWS CLI 설정 파일 다운로드 : https://s3.amazonaws.com/aws-cli/AWSCLISetup.exe
+  3). 'aws --version' 명령어를 통해 버전 
+    - C:\Users\korea>aws --version
+      aws-cli/1.16.277 Python/3.6.0 Windows/10 botocore/1.13.13
+
+2. AWS Access Key ID, AWS Secret Access Key는 계정 자격 증명으로 IAM USERS에서 관련 정보를 획득할 수 있음.
+  - 우측 상단 계정 클릭 -> My Security Credentials -> Users -> Add User -> User name 입력 후 'Programmatic access' 체크 
+  -> Next: Permissions 클릭 -> Attach existing policies directly 클릭 -> AdministratorAccess 권한 부여 -> Next: Tags 
+  -> Next: Review -> Create user -> Access ID, Secret Access Key 저장
+  
+3. 'aws configure' 입력 후 4가지 내용 입력
+  1) C:\Users\korea>aws configure
+    AWS Access Key ID [None]: AKIA5PKUDF3US2ZWIB5U
+    AWS Secret Access Key [None]: 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
+    Default region name [None]: us-west-2
+    Default output format [None]:
+  2) .aws 파일 생성 확인
+    C:\Users\korea\.aws>dir
+    2019-11-08  오후 11:34                31 config
+    2019-11-08  오후 11:34               119 credentials
