@@ -1,0 +1,14 @@
+- Google Android Studio
+  . App name
+  . Package name
+  . API level 설정
+  . Language 설정(java or kotlin)
+  . apk 및 Fingerprint 생성을 위한 jks 생성
+
+- Google Play console
+  . URL : https://play.google.com/apps/publish/
+  . Package name 기반으로 app 업로드 
+
+- Google Firebase
+  . URL : https://firebase.google.com/?hl=ko
+  . Project 생성 -> Package name, 개발/업로드/앱서명 Fingerprint 기반으로 App 등록 -> google-services.json 생성 후 Android Studio project에 include 
