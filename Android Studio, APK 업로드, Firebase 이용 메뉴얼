@@ -1,4 +1,8 @@
-- Google Android Studio
+안드로이드 앱 새로 만드는 절차
+
+요즘 안드로이드는 기본적으로 구글 로그인과 알림을 사용합니다. 그래서 이 모든 것을 포함하는 앱을 만들려면 구글의 여러 서비스들을 아래와 같이 연결해야 합니다.
+
+1. Google Android Studio
   . App name
   . Package name
   . API level 설정
