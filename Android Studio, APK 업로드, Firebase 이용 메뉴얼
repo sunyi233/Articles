@@ -3,16 +3,24 @@
 요즘 안드로이드는 기본적으로 구글 로그인과 알림을 사용합니다. 그래서 이 모든 것을 포함하는 앱을 만들려면 구글의 여러 서비스들을 아래와 같이 연결해야 합니다.
 
 1. Google Android Studio
-  App name: 앱의 이름입니다.
-  Package name: 구글 플레이에서 식별되는 유일한 앱 ID입니다.
-  API level 설정: API 26이상이어야 구글 플레이에 올라 갑니다.
-  . Language 설정(java or kotlin)
-  . apk 및 Fingerprint 생성을 위한 jks 생성
-
-- Google Play console
-  . URL : https://play.google.com/apps/publish/
-  . Package name 기반으로 app 업로드 
-
-- Google Firebase
-  . URL : https://firebase.google.com/?hl=ko
-  . Project 생성 -> Package name, 개발/업로드/앱서명 Fingerprint 기반으로 App 등록 -> google-services.json 생성 후 Android Studio project에 include 
+    Package name: 구글 플레이에서 식별되는 유일한 앱 ID입니다.
+    jks 파일 만들기: apk 및 Fingerprint 생성에 필요
+    
+    App name: 앱의 이름입니다.
+    API level 설정: API 26이상이어야 구글 플레이에 올라 갑니다.
+    Language 설정: Kotlin
+    
+2. Google Play Console
+    URL : https://play.google.com/apps/publish/
+    1번에서 만든 첫 앱의 release build aab를 올립니다.
+    
+    SHA1 두 개를 얻는다.
+    
+3. Google Firebase
+    URL : https://firebase.google.com/?hl=ko
+    Project를 만듭니다.
+    이 Project에 안드로이드 앱을 만듭니다.
+    1번에서 만든 앱의 package name을 연결합니다.
+    
+    2번에서 얻는 SHA1 둘과 Android Studio에서 signing report에서 얻는 SHA1을 등록합니다.
+    google-services.json을 얻어서 AS에 넣습니다.
