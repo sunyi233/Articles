@@ -24,3 +24,4 @@
     
     2번에서 얻는 SHA1 둘과 Android Studio에서 signing report에서 얻는 SHA1을 등록합니다.
     google-services.json을 얻어서 AS에 넣습니다.
+    General -> Public settings -> Support email 입력 (email 입력 하지 않을 경우 Google Sign In error 12500 발생)
