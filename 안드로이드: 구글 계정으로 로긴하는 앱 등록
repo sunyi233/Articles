@@ -20,3 +20,58 @@
 
 구글플레이 콘솔의 Release management의 App sigining에서 얻은 app sigining fingerprint를
 Google api의 credentilas의 OAuth client에 먹여 보았어요.
+
+
+
+
+
+			private inner class RetrieveTokenTask : AsyncTask<GoogleSignInAccount, Void, String>()
+			{
+
+
+
+
+				override fun doInBackground(vararg params: GoogleSignInAccount): String?
+				{
+					val accountName = params[0]
+					val scopes = "oauth2:profile email"
+					var token: String? = null
+					try
+					{
+						token = GoogleAuthUtil.getToken(applicationContext, accountName.account, scopes)
+						Log.e("tokentokentokentokentokentoken", token)
+					}
+					catch (e: IOException)
+					{
+						Log.e("Intro", e.message)
+					}
+					catch (e: UserRecoverableAuthException)
+					{
+						startActivityForResult(e.intent, RC_SIGN_IN)
+						//REQ_SIGN_IN_REQUIRED = 55664;
+					}
+					catch (e: GoogleAuthException)
+					{
+						Log.e("Intro", e.message)
+					}
+					return token;
+				}
+
+
+
+
+				override fun onPostExecute(result: String?)
+				{
+					super.onPostExecute(result)
+					Log.i("Intro", result)
+				}
+
+
+
+
+
+			}
+
+
+
+
