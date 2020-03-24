@@ -3,17 +3,13 @@
 
     "host": "",
     "protocol": "sftp",
-    "port": 1234,
-    "algorithms": {"cipher":["aes128-cbc"]},
+    "port": 22,
 
-    "username": "",
-    "password": "",
+    "username": "bitnami",
+    "privateKeyPath": "",
 
-    "remotePath": "",
+    "remotePath": "/opt/bitnami/nginx/html/",
+
     "watcher": {"files": "**", "autoUpload": true, "autoDelete": true},
-    "syncMode": "full",
-
     "uploadOnSave": true
 }
-
-
