@@ -3,24 +3,18 @@
 3. 'Ctrl + Shift + P'를 눌러 sftp.json 파일을 만든다.
 4. 아래와 같이 편집한다.
     {
-        "name":"",
+        "name": "",
 
-        "host":"",
-        "protocol":"sftp",
-        "port":22,
+        "host": "",
+        "protocol": "sftp",
+        "port": 22,
 
-        "username":"bitnami",
-        "privateKeyPath":"C:\\Dev\\pem\\test.pem",
+        "username": "bitnami",
+        "privateKeyPath": "",
 
         "remotePath": "/opt/bitnami/nginx/html/",
-        "watcher": {"files": "**", "autoUpload": true, "autoDelete": true},
-        "syncMode": "full",
 
+        "watcher": {"files": "**", "autoUpload": true, "autoDelete": true},
         "uploadOnSave": true
     }
 5. 서버에 들어 가서 '/opt/bitnami/nginx/html/'에 가서 'rm -rf *' 명령을 하면 폴더가 청소된다.
-
-
-
-
-
