@@ -1,0 +1,19 @@
+<script src="https://apis.google.com/js/api.js" onload="gapi.load('client:auth2');" defer></script>
+<script>
+    function Enter()
+    {
+        gapi.client.init({apiKey:'', clientId:'363519352184-lkhh84ih6f8adv07d90pbrvhs1r2jmva.apps.googleusercontent.com', scope:'email'}).then
+        (
+            function ()
+            {
+                // if already logged in
+                if(gapi.auth2.getAuthInstance().isSignedIn.get())
+                    location = "/Dashboard.html";
+                    
+                // let user login
+                gapi.auth2.getAuthInstance().isSignedIn.listen(function () {location = "/Dashboard.html";});
+                gapi.auth2.getAuthInstance().signIn();
+            }
+        );
+    }
+</script>
