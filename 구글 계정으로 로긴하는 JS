@@ -1,19 +1,44 @@
 <script src="https://apis.google.com/js/api.js" onload="gapi.load('client:auth2');" defer></script>
 <script>
+    window.onload = () => {};
+
     function Enter()
     {
-        gapi.client.init({apiKey:'', clientId:'363519352184-lkhh84ih6f8adv07d90pbrvhs1r2jmva.apps.googleusercontent.com', scope:'email'}).then
+        gapi.client.init({apiKey:'', clientId:'', scope:'email'}).then
         (
             function ()
             {
+                _ThisInstance = gapi.auth2.getAuthInstance();
+
                 // if already logged in
-                if(gapi.auth2.getAuthInstance().isSignedIn.get())
-                    location = "/Dashboard.html";
-                    
+                if(_ThisInstance.isSignedIn.get())
+                {
+                    SaveAndRedirect();
+                    return;
+                }
+
                 // let user login
-                gapi.auth2.getAuthInstance().isSignedIn.listen(function () {location = "/Dashboard.html";});
-                gapi.auth2.getAuthInstance().signIn();
+                _ThisInstance.isSignedIn.listen(SaveAndRedirect);
+                _ThisInstance.signIn();
             }
         );
+    }
+
+    function SaveAndRedirect()
+    {
+        // get user info
+        ThisUser = _ThisInstance.currentUser.get();
+
+        GAE = ThisUser.getBasicProfile().getEmail();
+        GAN = ThisUser.getBasicProfile().getName();
+        GAT = ThisUser.getAuthResponse(true).access_token;
+
+        // save things
+        localStorage.setItem('GAE', GAE);
+        localStorage.setItem('GAN', GAN);
+        localStorage.setItem('GAT', GAT);
+
+        // redirect
+        location = "/Dashboard.html";
     }
 </script>
