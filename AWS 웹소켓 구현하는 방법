@@ -16,12 +16,18 @@ import json
 
 def lambda_handler(event, context):
     WSSConnection = boto3.client('apigatewaymanagementapi', endpoint_url = 'https://9k3f4ajuwf.execute-api.us-east-2.amazonaws.com/CoinvilProOrderbookWSS/')
-    WSSConnection.post_to_connection(ConnectionId=event['requestContext']['connectionId'], Data=json.loads(event['body'])["message"])
+    
+    #WSSConnection.post_to_connection(ConnectionId=event['requestContext']['connectionId'], Data=json.loads(event['body'])["message"])
     #print(json.loads(event['body'])["message"])
     
 return {'statusCode':200, 'body':'OK'}
 
 ```
+
+5. Basic setting 에서 Memory설정 후  Existing role의 View the WSS-Test-role-fj1yicmv role 링크 클릭
+
+6. Add inline policy - ExecuteAPI를 추가 후 다시 lambda page에서 save
+
 
 
 http://websocket.org/echo.html에서 확인
