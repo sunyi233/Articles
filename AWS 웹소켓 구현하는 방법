@@ -23,4 +23,5 @@ return {'statusCode':200, 'body':'OK'}
 
 ```
 
-5. http://websocket.org/echo.html에서 확인
+
+http://websocket.org/echo.html에서 확인
