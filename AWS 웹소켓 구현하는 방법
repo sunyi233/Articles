@@ -27,8 +27,6 @@ return {'statusCode':200, 'body':'OK'}
 
 5. Basic setting 에서 Memory설정 후  Existing role의 View the WSS-Test-role-fj1yicmv role 링크 클릭
 
-6. Add inline policy - ExecuteAPI를 추가 후 다시 lambda page에서 save
-
-
+6. AWSLambdaBasicExecutionRole 펼친 후 -> Edit-policy -> Add additional permissions -> ExecuteAPI를 추가 후 다시 lambda page에서 save
 
 http://websocket.org/echo.html에서 확인
