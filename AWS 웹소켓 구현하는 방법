@@ -9,7 +9,7 @@ API Gateway
 
 4. 웹소켓 connect용 Lambda function 생성 후 연결 (endpoint_url에 Stages에 있는 Connection URL 입력)
 
-```
+'''
 
 import boto3
 import json
@@ -23,7 +23,7 @@ def lambda_handler(event, context):
     
 return {'statusCode':200, 'body':'OK'}
 
-```
+'''
 
 5. Basic setting 에서 Memory설정 후  Existing role의 View the WSS-Test-role-fj1yicmv role 링크 클릭
 
