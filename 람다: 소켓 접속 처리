@@ -1,3 +1,5 @@
+Python ===========================================================================
+
 import boto3
 import json
 import time
@@ -8,3 +10,6 @@ def lambda_handler(event, context):
     AccessToken = event['multiValueHeaders']['Sec-WebSocket-Protocol'][0]
     
     return {'statusCode':200, 'headers':{"Sec-WebSocket-Protocol":AccessToken}}
+    
+JS ===========================================================================
+CoinvilMyOrdersWS = new WebSocket('wss://7vz4t91n2l.execute-api.ap-northeast-2.amazonaws.com/CoinvilMyOrders', localStorage.getItem('AccessToken'));
