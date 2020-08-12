@@ -1,0 +1,17 @@
+Gradle에서 apk파일을 복사하는 코드입니다.
+
+
+
+      def taskSuffix = variant.name.capitalize()
+      def assembleTaskName = "assemble$taskSuffix"
+      if (tasks.findByName(assembleTaskName))
+      {
+          def copyAPKFolderTask = tasks.create(name: "archive$taskSuffix", type: org.gradle.api.tasks.Copy)
+          {
+              from "$buildDir/outputs/apk/debug/"
+              into "C:\\Builds\\"
+              include "*.apk"
+          }
+
+          tasks[assembleTaskName].finalizedBy = [copyAPKFolderTask]  
+      }
