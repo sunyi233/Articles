@@ -1,0 +1,18 @@
+안드로이드 Gradle build 할 때, apk 파일명이 자동으로 변경되고, versionCode 관리가 가능하다.
+
+    defaultConfig
+    {
+        versionCode 1   // build 번호를 정할 수 있다.
+
+        applicationId "kr.dklab.work"
+        minSdkVersion 28
+        targetSdkVersion 30
+        versionName "1.0"
+    }
+
+    applicationVariants.all
+    {
+        variant ->
+
+        variant.outputs.all {outputFileName = "${applicationId}-${defaultConfig.versionCode}.apk"}
+    }
