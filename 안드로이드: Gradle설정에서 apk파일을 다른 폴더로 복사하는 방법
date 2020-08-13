@@ -1,0 +1,18 @@
+안드로이드 Gradle설정에서 다른 폴더로 APK파일 복사하는 코드 입니다.
+
+
+
+
+def taskSuffix = variant.name.capitalize()
+def assembleTaskName = "assemble$taskSuffix"
+if (tasks.findByName(assembleTaskName))
+{
+    def copyAPKFolderTask = tasks.create(name: "archive$taskSuffix", type: org.gradle.api.tasks.Copy)
+    {
+        from "$buildDir/outputs/apk/debug/"  //APK파일이 저장되는 위치
+        into "C:\\Builds\\"                  //복사하고 싶은 폴더 위치
+        include "*.apk"
+    }
+
+    tasks[assembleTaskName].finalizedBy = [copyAPKFolderTask]
+}
