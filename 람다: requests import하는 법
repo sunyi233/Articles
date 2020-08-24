@@ -1,5 +1,5 @@
 람다에서 requests를 import하기 위해서 먼저 requests가 들어있는 패키지를 다운받아야한다.
-https://github.com/Beomi/aws-lambda-py3/blob/master/requests_bs4_lxml/pack.zip <- 다운로드 Url
+https://github.com/Beomi/aws-lambda-py3/blob/master/requests_bs4_lxml/pack.zip <- 해당 Url에 들어가서 pack.zip을 다운로드
 
 -- https://ap-northeast-2.console.aws.amazon.com/lambda/ 에 들어가서
 1.AWS Lamda 콘솔(왼쪽 메뉴바)에서 Additional resources밑에 있는 Layers를 클릭
