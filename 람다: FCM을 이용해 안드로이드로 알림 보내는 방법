@@ -1,0 +1,30 @@
+람다함수에서 FCM을 이용해 안드로이드로 알림 보내는 방법
+
+1. https://console.firebase.google.com에서 프로젝트를 선택한 후 세팅에 들어간다.
+2. 세팅에서 Cloud Messging에 Server Key를 알아둔다.
+3. 안드로이드에서 FCM token을 받아온다.
+
+import json
+import requests
+
+def lambda_handler(event, context):
+    
+    message = "test hello"
+    token = "$Token"  //$Token은 3에서 받아온 안드로이드 토큰을 입력
+    
+    data = {"notification": { "title": "kr.dklab.work", "body": message,}, "to": token}  //notification 형식으로 보내는 방법
+    #data = {"data": { "title": "kr.dklab.work", "body": message}, "to": token}         //data 형식으로 보내는 방법
+    
+    data_json = json.dumps(data)
+    
+    headers = {'Content-type': 'application/json', 'Authorization':'Key=$SERVER KEY'} // $SERVER KEY는 2번에서 받아온 서버키를 입력
+
+    url = 'https://fcm.googleapis.com/fcm/send'    
+
+    response = requests.post(url, data=data_json, headers=headers) 
+    
+    return {'statusCode': 200, 'body': json.dumps('Hello from Lambda!')}
+    
+    
+    
+    
