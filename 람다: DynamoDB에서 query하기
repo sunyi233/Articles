@@ -1,0 +1,7 @@
+resource('dynamodb').Table('AAA').query
+(
+    KeyConditionExpression = Key('aaa').eq('111'),
+    FilterExpression = Attr('bbb').eq('222') | Attr('ccc').eq('333'),
+    ScanIndexForward = False
+)['Items']
+
