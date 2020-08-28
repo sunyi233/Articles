@@ -5,7 +5,7 @@
 3. 안드로이드에서 FCM token을 받아온다.
 
 import json
-import requests
+import urllib3
 
 def lambda_handler(event, context):
     
@@ -21,7 +21,7 @@ def lambda_handler(event, context):
 
     url = 'https://fcm.googleapis.com/fcm/send'    
 
-    response = requests.post(url, data=data_json, headers=headers) 
+    http = urllib3.PoolManager().request('post',url,body=data_json,headers=headers)
     
     return {'statusCode': 200, 'body': json.dumps('Hello from Lambda!')}
     
