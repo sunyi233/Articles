@@ -1,0 +1,25 @@
+아래와 같이 하면 AWS AG의 WSA에 WebSocket client가 접속했을 때 Sec-WebSocket-Protocol를 처리할 수 있다.
+
+import boto3
+import json
+import urllib3
+
+def lambda_handler(event, context):
+    ConnectionID = event['requestContext']['connectionId']
+    GAT = event['multiValueHeaders']['Sec-WebSocket-Protocol'][0]
+    
+    # set things
+    GoogleUserInfoURL = 'https://www.googleapis.com/oauth2/v1/userinfo?access_token='
+    AllowedUsers = 'sdfgyeryujryikrtyuj'
+    
+    # get google account from Google using GAT
+    try:
+        GoogleAccount = urllib3.PoolManager().request('GET', GoogleUserInfoURL + GAT, retries = False).data.decode('utf-8')
+    except Exception as e:
+        return {'statusCode':200}
+        
+    # check credential
+    if json.loads(GoogleAccount)["email"] in AllowedUsers:
+        return {'statusCode':200, 'headers':{"Sec-WebSocket-Protocol":event['multiValueHeaders']['Sec-WebSocket-Protocol'][0]}}
+    else:
+        return {'statusCode':200}
