@@ -18,3 +18,30 @@
         "uploadOnSave": true
     }
 5. 서버에 들어 가서 '/opt/bitnami/nginx/html/'에 가서 'rm -rf *' 명령을 하면 폴더가 청소된다.
+
+
+
+
+
+
+- Ubuntu <-> Window SFTP 동기화 기능(VSC 이용).
+
+1. https://m.blog.naver.com/crehacktive3/221025481033
+2. Visual Studio Code 다운로드 : https://code.visualstudio.com/
+3. SFTP 설치 : Extensions (Ctrl + Shift X) -> sftp 검색 후 다운로드
+4. 동기화하고자 하는 Ubuntu 서버 정보 입력 
+  - F1 클릭 -> 동기화할 폴더 선택 
+  - SFTP:Config 선택  
+  - 아래와 같이 서버 정보 입력
+  {
+      "name": "Unbuntu Test Server",
+      "host": "xx.xxx.x.xx",
+      "protocol": "sftp",
+      "port": 22,
+      "username": "xxxxxx",
+      "remotePath": "/home/ubuntu/app/node/bitgo-express",
+      "privateKeyPath": "/Users/korea/Desktop/Awesomeguy/BGCKey/xxxxxx.pem",
+      "uploadOnSave": true
+  }
+5. 동기화하고자 하는 폴더 다운로드 : F1 클릭 -> SFTP:Download Project 클릭 -> 다운로드 확인
+6. 로컬에서 코드 수정 후 Ubuntu 서버 업로드 : 마우스 우클릭 -> Upload
