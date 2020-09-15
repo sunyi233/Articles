@@ -1,0 +1,13 @@
+Frontend
+
+window.onload = () =>
+{
+    var TestFD = new FormData();
+    TestFD.append('AAAAAAAA', '111111111');
+    fetch('https://pltv0o5ix2.execute-api.ap-northeast-2.amazonaws.com/Test', {method:'POST', body:TestFD}).then(Result => Result.json().then(Data => console.log(Data) ))
+}
+
+Backend
+
+Access-Control-Allow-Origin: Frontend의 URL
+Access-Control-Allow-Methods: POST
