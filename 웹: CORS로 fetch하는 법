@@ -2,9 +2,18 @@ Frontend
 
 window.onload = () =>
 {
-    var TestFD = new FormData();
-    TestFD.append('AAAAAAAA', '111111111');
-    fetch('https://pltv0o5ix2.execute-api.ap-northeast-2.amazonaws.com/Test', {method:'POST', body:TestFD}).then(Result => Result.json().then(Data => console.log(Data) ))
+    URLToPost = 'https://p0hah5et8i.execute-api.ap-northeast-2.amazonaws.com/GetMyBalances';
+    BodyToPost = {'GAT':localStorage.getItem('MyGAT')};
+    fetch(URLToPost, {method:'POST', body:JSON.stringify(BodyToPost)}).then(Result => Result.json().then(Data => SetBalances(Data)));
+    function SetBalances(Result)
+    {
+        if (Result == "Error")
+            location = "/";
+
+        document.getElementById('BTCBalance').innerText = Result.BTC + " BTC";
+        document.getElementById('ETHBalance').innerText = Result.ETH + " ETH";
+        document.getElementById('LTCBalance').innerText = Result.LTC + " LTC";
+    }
 }
 
 Backend
