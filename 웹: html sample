@@ -1,0 +1,20 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>Sample</title>
+        <link rel="shortcut icon" href="#">
+
+        <meta charset="UTF-8">
+
+        <link rel="stylesheet" href="/Web.css">
+        <style>
+        </style>
+
+        <script src="/Web.js"></script>
+        <script>
+            window.onload = () => {}
+        </script>
+    </head>
+    <body>
+    </body>
+</html>
