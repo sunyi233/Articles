@@ -4,6 +4,14 @@
 
 3. API & Services 에 Credentials로 들어간다.
 
-4. Origins을 지정해준다.
+4. 상단에 +CREATE CREDENTIALS을 눌르고 OAuth client ID를 클릭한다.
 
-5. 해당 Client Ids로 구글 로긴 한다.
+5. Application type 에 Web application을 선택하고 Name을 입력한다.
+
+6. Authorized JavaScript origins 에 ADD URI 버튼을 클릭하고 사이트 주소를 입력한다.
+
+
+
+
+
+
