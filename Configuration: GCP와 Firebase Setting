@@ -1,3 +1,9 @@
 1. Firebase에서 Add project를 한다.
 
-2. GCP console 에 들어가서 API
+2. GCP console 에 들어간다. 
+
+3. API & Services 에 Credentials로 들어간다.
+
+4. Origins을 지정해준다.
+
+5. 해당 Client Ids로 구글 로긴 한다.
