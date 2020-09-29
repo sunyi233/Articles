@@ -1,0 +1,24 @@
+구글에서 OAuth2.0을 통해 Client ID를 얻는 방법
+
+
+    1. GCP console 에 들어가서 NEW PROJECT를 하고 내용을 입력한다. 
+    
+    2. OAuth consent screen에서 External을 클릭하고 CREATE 버튼을 클릭하고 내용을 입력한다. 
+    
+    3. Firebase console에 가서 해당 프로젝트를 추가한다.
+    
+    4. 다시 GCP console에 API & Services로 가서 Credentials로 들어간다.
+
+    5. 상단에 +CREATE CREDENTIALS을 눌르고 OAuth client ID를 클릭한다.
+
+    6. Application type 에 Web application을 선택하고 Name을 입력한다.
+
+    7. Authorized JavaScript origins 에 ADD URI 버튼을 클릭하고 사이트 주소를 입력한다.
+    
+    8. Client ID를 얻는다.
+
+
+
+
+
+
