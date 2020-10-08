@@ -1,44 +1,70 @@
-<script src="https://apis.google.com/js/api.js" onload="gapi.load('client:auth2');" defer></script>
-<script>
-    window.onload = () => {};
+<!DOCTYPE html>
+<html>
+    <head>
+        <title></title>
 
-    function Enter()
-    {
-        gapi.client.init({apiKey:'', clientId:'', scope:'email'}).then
-        (
-            function ()
+        <meta charset="UTF-8">
+
+        <link rel="stylesheet" href="/Web.css?rasedrsetyhetrdhgysdh">
+        <style>
+            body
             {
-                _ThisInstance = gapi.auth2.getAuthInstance();
+                padding-top:300px;
+                text-align:center;
+            }
+        </style>
 
-                // if already logged in
-                if(_ThisInstance.isSignedIn.get())
+        <script src="/Web.js"></script>
+        <script src="https://apis.google.com/js/api.js" onload="gapi.load('client:auth2', Set_GoogleAuthInstance);" defer></script>
+        <script>
+            let _GoogleAuthInstance;
+
+            window.onload = () => {};
+
+            function Set_GoogleAuthInstance()
+            {
+                _GoogleAuthInstance = null;
+                gapi.client.init({clientId:_GoogleOAuthClientID, scope:'email profile'}).then(() => {_GoogleAuthInstance = gapi.auth2.getAuthInstance();});
+            }
+        </script>
+    </head>
+    <body>
+        <a class="btn btn-primary" href="javascript:Enter();">들어가기</a>
+        <script>
+            function Enter()
+            {
+                if (_GoogleAuthInstance == null)
+                    return;
+
+                if (_GoogleAuthInstance.isSignedIn.get() == false)
                 {
-                    SaveAndRedirect();
+                    // try to pair
+                    _GoogleAuthInstance.isSignedIn.listen(ProcessSignedIn);
+                    _GoogleAuthInstance.signIn();
+
                     return;
                 }
 
-                // let user login
-                _ThisInstance.isSignedIn.listen(SaveAndRedirect);
-                _ThisInstance.signIn();
+                ProcessSignedIn();
             }
-        );
-    }
 
-    function SaveAndRedirect()
-    {
-        // get user info
-        ThisUser = _ThisInstance.currentUser.get();
+            function ProcessSignedIn()
+            {
+                let MyGAT = _GoogleAuthInstance.currentUser.get().getAuthResponse(true).access_token;
+                let MyProfile = _GoogleAuthInstance.currentUser.get().getBasicProfile();
 
-        GAE = ThisUser.getBasicProfile().getEmail();
-        GAN = ThisUser.getBasicProfile().getName();
-        GAT = ThisUser.getAuthResponse(true).access_token;
+                BodyToPost = {'GAID':MyProfile.getId() };
+                fetch(_APIEndpoint + 'GetPermission', {method:'POST', body:JSON.stringify(BodyToPost)}).then(Result => Result.json().then(Data => ProcessGetMyInfo(Data)));
+                function ProcessGetMyInfo(Data)
+                {
+                    if (Data.Result == 'Error')
+                        return;
 
-        // save things
-        localStorage.setItem('GAE', GAE);
-        localStorage.setItem('GAN', GAN);
-        localStorage.setItem('GAT', GAT);
-
-        // redirect
-        location = "/Dashboard.html";
-    }
-</script>
+                    window.localStorage.setItem('MyGAT', MyGAT);
+                    window.localStorage.setItem('MyGAE', MyProfile.getEmail());
+                    window.localStorage.setItem('MyGAN', MyProfile.getName());
+                }
+            }
+        </script>
+    </body>
+</html>
