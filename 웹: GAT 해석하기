@@ -1,0 +1,2 @@
+GAT =  'aaaaaaaaaaaaaaaa';
+fetch('https://www.googleapis.com/oauth2/v1/tokeninfo?access_token=' + GAT).then(Result => Result.json().then(Data => console.log(Data)));
