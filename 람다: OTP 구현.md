@@ -1,7 +1,6 @@
 #### 참고 자료
     https://github.com/google/google-authenticator/wiki/Key-Uri-Format
-
-
+    https://github.com/pyauth/pyotp
 
 
 #### 구현
