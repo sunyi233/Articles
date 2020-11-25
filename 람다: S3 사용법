@@ -1,0 +1,9 @@
+
+
+
+
+
+Result = boto3.resource('s3').Bucket('<bucket 이름>').Object(<key 이름>).get().get('Body').read().decode('utf-8')
+
+
+
