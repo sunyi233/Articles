@@ -22,13 +22,13 @@
 3. 람다에서 Python으로 부를 때
     Ping
         urllib3.disable_warnings()
-        ConnectionPool = urllib3.HTTPSConnectionPool('bitgo.coinvil.ph', port = <PortNumber>, cert_reqs = 'CERT_NONE')
+        ConnectionPool = urllib3.HTTPSConnectionPool('<ServerIP>', port = <PortNumber>, cert_reqs = 'CERT_NONE')
         Result = ConnectionPool.request('GET', '/api/v2/ping').data.decode('utf-8')
         print(Result)
         
     지갑 정보
         urllib3.disable_warnings()
-        ConnectionPool = urllib3.HTTPSConnectionPool('bitgo.coinvil.ph', port = <PortNumber>, cert_reqs = 'CERT_NONE')
+        ConnectionPool = urllib3.HTTPSConnectionPool('<ServerIP>', port = <PortNumber>, cert_reqs = 'CERT_NONE')
         Result = ConnectionPool.request('GET', '/api/v2/btc/wallet/<WalletID>', headers = {'Authorization':'Bearer <ApiKey>'}).data.decode('utf-8')
         print(Result)
         
