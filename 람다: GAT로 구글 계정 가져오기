@@ -27,18 +27,13 @@
     }
     
 그러므로 비록 통신 에러 없이 결과 Json을 잘 가져 왔다고 해도 그 안에 내용적인 error가 있는지 확인해야 한다. 파이썬의 경우 아래와 같이 확인한다.
+import urllib3
 
     try:
-        GoogleAccount = urllib3.PoolManager().request('GET', 'https://www.googleapis.com/oauth2/v1/userinfo?access_token=' + PostedParameters['GAT']).data
+        GoogleAccount = json.loads(urllib3.PoolManager().request('GET', 'https://www.googleapis.com/oauth2/v1/userinfo?access_token=' + PostedParameters['GAT']).data)
     except Exception as e:
-        return {'statusCode':200, 'body':'Error'}
-        
-    GoogleAccount = json.loads(GoogleAccount)
-    if "error" in GoogleAccount:
-        return {'statusCode':200, 'body':'Error'}
-
-
-
-
+        return {'statusCode':200}
+    if 'error' in GoogleAccount:
+        return {'statusCode':200}
 
 
