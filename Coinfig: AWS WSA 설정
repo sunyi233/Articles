@@ -21,7 +21,7 @@ import boto3
 import json
 
 def lambda_handler(event, context):
-    WSSConnection = boto3.client('apigatewaymanagementapi', endpoint_url = 'https://9k3f4ajuwf.execute-api.us-east-2.amazonaws.com/CoinvilProOrderbookWSS/')
+    WSSConnection = boto3.client('apigatewaymanagementapi', endpoint_url = '')
     
     #post_to_connection function은 따로 만든다.
     #WSSConnection.post_to_connection(ConnectionId=event['requestContext']['connectionId'], Data=json.loads(event['body'])["message"])
