@@ -12,8 +12,8 @@ def lambda_handler(event, context):
     message = "test hello"
     token = "$Token"  //$Token은 3에서 받아온 안드로이드 토큰을 입력
     
-    data = {"notification": { "title": "kr.dklab.work", "body": message,}, "to": token}  //notification 형식으로 보내는 방법
-    #data = {"data": { "title": "kr.dklab.work", "body": message}, "to": token}         //data 형식으로 보내는 방법
+    data = {"notification": { "title": "", "body": message,}, "to": token}  //notification 형식으로 보내는 방법
+    #data = {"data": { "title": "", "body": message}, "to": token}         //data 형식으로 보내는 방법
     
     data_json = json.dumps(data)
     
