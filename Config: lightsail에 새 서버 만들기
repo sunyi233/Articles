@@ -1,9 +1,9 @@
 <AWS-lightsail>
 1. lightsail에 접속해서 새 서버 만들기
 
-2. 서버명 지정해주기 : tim.ifis.works
+2. 서버명 지정해주기 : 
 
-3. pem명 지정해주기 : key-tim.ifis.works
+3. pem명 지정해주기 : 
 
 4. private key를 안전한 곳에 다운받기
 
@@ -13,7 +13,7 @@
 
 7. create
 
-8. 고정 ip 지정해주기 : static-tim.ifis.works
+8. 고정 ip 지정해주기 : 
 
 9. pem private key 랑 고정 ip 가지고 있음
 
