@@ -2,7 +2,7 @@ Frontend
 
 window.onload = () =>
 {
-    URLToPost = 'https://p0hah5et8i.execute-api.ap-northeast-2.amazonaws.com/GetMyBalances';
+    URLToPost = '';
     BodyToPost = {'GAT':localStorage.getItem('MyGAT')};
     fetch(URLToPost, {method:'POST', body:JSON.stringify(BodyToPost)}).then(Result => Result.json().then(Data => SetBalances(Data)));
     function SetBalances(Result)
