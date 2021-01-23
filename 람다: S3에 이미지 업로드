@@ -42,7 +42,7 @@ def lambda_handler(event, context):
 
 - post man 
   . POST 선택
-  . URL : Apigateway에서 URL + 리소스 이름 (ex : https://8b57n7e1rk.execute-api.us-east-2.amazonaws.com/v1/upload)
+  . URL : Apigateway에서 URL + 리소스 이름 
   . Headers : Content-Type + application/jpg 
   . Body -> binary 에서 파일 선택 후 request
 
