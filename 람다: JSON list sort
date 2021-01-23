@@ -1,3 +1,3 @@
-CoinvilNotices = sorted(CoinvilNotices, key = lambda x:x['Timestamp'], reverse = True)
+Test = sorted(Test, key = lambda x:x['Timestamp'], reverse = True)
 
-CoinvilNotices라는 list에 있는 JSON들을 Timestamp 키를 기준으로 소트한다. revers가 true이면 역순으로 한다.
+Test라는 list에 있는 JSON들을 Timestamp 키를 기준으로 소트한다. revers가 true이면 역순으로 한다.
