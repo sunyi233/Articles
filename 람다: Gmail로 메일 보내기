@@ -1,0 +1,19 @@
+import http.client
+import json
+import random
+import smtplib
+
+def lambda_handler(event, context):
+    PostedParameters = json.loads(event['body'])
+    Result = {}
+    
+    AuthenticationNumber = str(random.randint(100000, 999999))
+    
+    GmailServer = smtplib.SMTP_SSL('smtp.gmail.com', 465)
+    GmailServer.login("~~~~~~~@gmail.com", "~~~~~~~~~~")
+    GmailServer.sendmail("~~~~~~~~~~~~~@gmail.com", PostedParameters['EmailAddress'], "From:~~~~\nTo:~~~~\nSubject:~~~~~~")
+    GmailServer.quit()
+    
+    Result['AuthenticationNumber'] = AuthenticationNumber
+    
+    return {'statusCode':200, 'body':json.dumps(Result)}
