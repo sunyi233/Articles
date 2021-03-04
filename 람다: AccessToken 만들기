@@ -1,0 +1,3 @@
+import base64
+
+AccessToken = str(base64.b64encode(str(uuid.uuid4()).encode("utf-8")), "utf-8")
