@@ -1,0 +1,2 @@
+NewSummary['Change'] = '{:f}'.format(Change)
+NewSummary['Ratio'] = '{:.2f}'.format((Change / YesterdaySummary['LastPrice']) * 100)
