@@ -1,0 +1,13 @@
+
+
+
+
+필터를 동적으로 만들 때
+    Filter = Attr
+    Filter = Filter and Attr('EmailAddress').contains('')
+    
+    Result = resource('dynamodb').Table('').scan(FilterExpression = Filter)['Items']
+    
+    
+  
+
