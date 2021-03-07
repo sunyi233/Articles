@@ -2,7 +2,7 @@
 
 
 
-필터를 동적으로 만들 때
+필터를 동적으로 만들기
     Filter = Attr
     Filter = Filter and Attr('EmailAddress').contains('')
     
