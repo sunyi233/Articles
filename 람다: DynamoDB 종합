@@ -18,3 +18,9 @@ Query
         FilterExpression = Attr('bbb').eq('222') | Attr('ccc').eq('333'),
         ScanIndexForward = False
     )['Items']
+    
+Scan
+    resource('dynamodb').Table('').scan(ProjectionExpression="AAA, #c", ExpressionAttributeNames = {'#c':'CCC'})
+    
+    
+    
