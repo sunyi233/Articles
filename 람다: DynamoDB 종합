@@ -22,5 +22,6 @@ Query
 Scan
     resource('dynamodb').Table('').scan(ProjectionExpression="AAA, #c", ExpressionAttributeNames = {'#c':'CCC'})
     
-    
-    
+decimal 초기화하기
+    SMemberBTC = decimal.Decimal('0.00781284')
+    반드시 스트링으로 초기화해야 한다. 숫자로 초기화하면 변환 에러 생긴다.
