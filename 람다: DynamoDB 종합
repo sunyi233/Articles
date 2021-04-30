@@ -1,6 +1,6 @@
 from boto3 import resource
 from boto3.dynamodb.conditions import Key
-
+from boto3.dynamodb.conditions import Attr
 
 필터를 동적으로 만들기
     Filter = Attr
