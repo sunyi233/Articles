@@ -1,5 +1,5 @@
-
-
+from boto3 import resource
+from boto3.dynamodb.conditions import Key
 
 
 필터를 동적으로 만들기
@@ -8,10 +8,7 @@
     
     Result = resource('dynamodb').Table('').scan(FilterExpression = Filter)['Items']
     
-    
-  
-
-Query
+Query 날리기
     resource('dynamodb').Table('AAA').query
     (
         KeyConditionExpression = Key('aaa').eq('111'),
@@ -19,9 +16,6 @@ Query
         ScanIndexForward = False
     )['Items']
     
-Scan
+Scan 하기
     resource('dynamodb').Table('').scan(ProjectionExpression="AAA, #c", ExpressionAttributeNames = {'#c':'CCC'})
     
-decimal 초기화하기
-    SMemberBTC = decimal.Decimal('0.00781284')
-    반드시 스트링으로 초기화해야 한다. 숫자로 초기화하면 변환 에러 생긴다.
