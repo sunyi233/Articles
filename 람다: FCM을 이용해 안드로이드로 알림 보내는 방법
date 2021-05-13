@@ -8,20 +8,11 @@ import json
 import urllib3
 
 def lambda_handler(event, context):
+    FCMToken = '...'
     
-    message = "test hello"
-    token = "$Token"  //$Token은 3에서 받아온 안드로이드 토큰을 입력
-    
-    data = {"notification": { "title": "", "body": message,}, "to": token}  //notification 형식으로 보내는 방법
-    #data = {"data": { "title": "", "body": message}, "to": token}         //data 형식으로 보내는 방법
-    
-    data_json = json.dumps(data)
-    
-    headers = {'Content-type': 'application/json', 'Authorization':'Key=$SERVER KEY'} // $SERVER KEY는 2번에서 받아온 서버키를 입력
-
-    url = 'https://fcm.googleapis.com/fcm/send'    
-
-    http = urllib3.PoolManager().request('post',url,body=data_json,headers=headers)
+    Data = {'notification':{'title':'새 예약', 'body':'새 예약 신청이 들어 왔습니다.'}, 'to':FCMToken}
+    Headers = {'Content-type':'application/json', 'Authorization':'Key=AAAAgvmPpWg:APA91bE4LP6C4PIBPfxwQUYU5Z2bKG0IBnOs9IXi1mnhUa5j8pvFzuZaM...'}
+    http = urllib3.PoolManager().request('POST', 'https://fcm.googleapis.com/fcm/send', headers = Headers, body = json.dumps(Data))
     
     return {'statusCode': 200, 'body': json.dumps('Hello from Lambda!')}
     
