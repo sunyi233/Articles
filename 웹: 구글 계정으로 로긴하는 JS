@@ -1,3 +1,4 @@
+
 <!DOCTYPE html>
 <html>
     <head>
@@ -24,12 +25,14 @@
             function Set_GoogleAuthInstance()
             {
                 _GoogleAuthInstance = null;
-                gapi.client.init({clientId:_GoogleOAuthClientID, scope:'email profile'}).then(() => {_GoogleAuthInstance = gapi.auth2.getAuthInstance();});
+                
+                const GoogleOAuthClientID = '';
+                gapi.client.init({clientId:GoogleOAuthClientID, scope:'email profile'}).then(() => {_GoogleAuthInstance = gapi.auth2.getAuthInstance();});
             }
         </script>
     </head>
     <body>
-        <a class="btn btn-primary" href="javascript:Enter();">들어가기</a>
+        <a class="" href="javascript:Enter();">들어가기</a>
         <script>
             function Enter()
             {
@@ -53,17 +56,9 @@
                 let MyGAT = _GoogleAuthInstance.currentUser.get().getAuthResponse(true).access_token;
                 let MyProfile = _GoogleAuthInstance.currentUser.get().getBasicProfile();
 
-                BodyToPost = {'GAID':MyProfile.getId() };
-                fetch(_APIEndpoint + 'GetPermission', {method:'POST', body:JSON.stringify(BodyToPost)}).then(Result => Result.json().then(Data => ProcessGetMyInfo(Data)));
-                function ProcessGetMyInfo(Data)
-                {
-                    if (Data.Result == 'Error')
-                        return;
-
-                    window.localStorage.setItem('MyGAT', MyGAT);
-                    window.localStorage.setItem('MyGAE', MyProfile.getEmail());
-                    window.localStorage.setItem('MyGAN', MyProfile.getName());
-                }
+                window.localStorage.setItem('MyGAT', MyGAT);
+                window.localStorage.setItem('MyGAE', MyProfile.getEmail());
+                window.localStorage.setItem('MyGAN', MyProfile.getName());
             }
         </script>
     </body>
