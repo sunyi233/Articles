@@ -1,0 +1,24 @@
+1. Authorizer로 사용할 람다 함수를 만든다.
+2. AG에 이것을 authorizer로 등록한다.
+3. Authorizer의 코드는 다음과 같다.
+    def lambda_handler(event, context):
+        GAT = event['headers']['authorization'].split(' ')[1]
+
+
+
+        print(GAT)
+
+
+
+
+
+
+
+
+
+        return {"isAuthorized":False}
+        #return {"isAuthorized":True}
+
+
+
+
