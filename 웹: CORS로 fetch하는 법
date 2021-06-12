@@ -4,7 +4,8 @@ window.onload = () =>
 {
     URLToPost = '';
     BodyToPost = {'GAT':localStorage.getItem('MyGAT')};
-    fetch(URLToPost, {method:'POST', body:JSON.stringify(BodyToPost)}).then(Result => Result.json().then(Data => SetBalances(Data)));
+    HeadersToPost = {'Authorization': 'Bearer 111'};
+    fetch(URLToPost, {method:'POST', headers:HeadersToPost, body:JSON.stringify(BodyToPost)}).then(Result => Result.json().then(Data => SetBalances(Data)));
     function SetBalances(Result)
     {
         if (Result == "Error")
@@ -19,4 +20,8 @@ window.onload = () =>
 Backend
 
 Access-Control-Allow-Origin: Frontend의 URL
+Access-Control-Allow-Headers: authorization
 Access-Control-Allow-Methods: POST
+
+
+
