@@ -2,7 +2,10 @@
 
 2. AG에 이것을 authorizer로 등록한다.
 
-3. Authorizer의 코드는 다음과 같다.
+3. AG의 CORS에 아래와 같이 추가한다.
+    Access-Control-Allow-Headers: authorization
+    
+4. Authorizer의 코드는 다음과 같다.
     def lambda_handler(event, context):
         GAT = event['headers']['authorization'].split(' ')[1]
 
@@ -21,7 +24,7 @@
         return {"isAuthorized":False}
         #return {"isAuthorized":True}
         
-4. Authorizer 코드가 바뀌면 다시 attach한다.
+5. Authorizer 코드가 바뀌면 다시 attach한다.
 
 
 
