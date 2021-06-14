@@ -1,0 +1,31 @@
+아래와 같이 하면 들어 온 GAT를 화인하여 성패를 리턴할 수 있다.
+
+import json
+import urllib3
+
+def lambda_handler(event, context):
+    # check event['headers']['authorization']
+    if event['headers']['authorization'].startswith('Bearer') == False:
+        return {"isAuthorized":False}
+        
+    # set GoogleAccount
+    GAT = event['headers']['authorization'].split(' ')[1]
+    
+    try:
+        GoogleAccount = json.loads(urllib3.PoolManager().request('GET', 'https://www.googleapis.com/oauth2/v1/userinfo?access_token=' + GAT).data)
+    except Exception as e:
+        return {"isAuthorized":False}
+        
+    # check GoogleAccount
+    if 'error' in GoogleAccount:
+        return {"isAuthorized":False}
+
+
+
+
+
+
+    return {"isAuthorized":True}
+
+
+
