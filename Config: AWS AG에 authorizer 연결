@@ -7,12 +7,7 @@
     
 4. Authorizer의 코드는 다음과 같다.
     def lambda_handler(event, context):
-        GAT = event['headers']['authorization'].split(' ')[1]
-
-
-
-        print(GAT)
-
+        # event['headers']['authorization']
 
 
 
