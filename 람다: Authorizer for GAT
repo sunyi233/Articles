@@ -5,27 +5,30 @@ import urllib3
 
 def lambda_handler(event, context):
     # check event['headers']['authorization']
-    if event['headers']['authorization'].startswith('Bearer') == False:
+    if event['headers']['authorization'].startswith('Bearer ') == False:
         return {"isAuthorized":False}
         
-    # set GoogleAccount
-    GAT = event['headers']['authorization'].split(' ')[1]
+ # set GoogleAccount
+    GAT = event['headers']['authorization'][7:]
     
     try:
-        GoogleAccount = json.loads(urllib3.PoolManager().request('GET', 'https://www.googleapis.com/oauth2/v1/userinfo?access_token=' + GAT).data)
+     GoogleAccount = json.loads(urllib3.PoolManager().request('GET', 'https://www.googleapis.com/oauth2/v1/userinfo?access_token=' + GAT).data)
     except Exception as e:
         return {"isAuthorized":False}
         
-    # check GoogleAccount
+ # check error
     if 'error' in GoogleAccount:
         return {"isAuthorized":False}
-
-
-
-
-
-
-    return {"isAuthorized":True}
-
-
+        
+    # check email domain
+    if GoogleAccount['email'].split('@')[1] != 'handylabs.io':
+        return {"isAuthorized":False}
+        
+    return {"isAuthorized":True, "context":GoogleAccount}
+    
+이 authorizer가 business lambda에게 context 형식으로 내용을 전달할 수 있다.
+    
+    
+    
+    
 
