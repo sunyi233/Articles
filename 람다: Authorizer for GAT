@@ -21,7 +21,7 @@ def lambda_handler(event, context):
         return {"isAuthorized":False}
         
     # check email domain
-    if GoogleAccount['email'].split('@')[1] != 'handylabs.io':
+    if GoogleAccount['email'].split('@')[1] != '<도메인 이름>':
         return {"isAuthorized":False}
         
     return {"isAuthorized":True, "context":GoogleAccount}
