@@ -19,3 +19,10 @@ Query 날리기
 Scan 하기
     resource('dynamodb').Table('').scan(ProjectionExpression="AAA, #c", ExpressionAttributeNames = {'#c':'CCC'})
     
+Put Item
+    resource('dynamodb').Table('').put_item(Item = PostedParameters)
+    
+Get Item
+    resource('dynamodb').Table('').get_item(Key = {'BNumber':PostedParameters['BNumber']})
+
+
