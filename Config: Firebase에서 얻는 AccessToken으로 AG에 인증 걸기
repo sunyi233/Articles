@@ -8,8 +8,8 @@ Google Firebase는 간편하게 회원 시스템을 만드는데 도움을 준�
     Authorization에 가서 인증이 필요한 route에 인증을 건다.
         Name: Firebase
         Identity source: $request.header.Authorization
-        Issuer URL: https://securetoken.google.com/<파이어베이스 App ID>
-        Audience: <파이어베이스 App ID>
+        Issuer URL: https://securetoken.google.com/<파이어베이스 Project ID>
+        Audience: <파이어베이스 Project ID>
         
 3. API 부르기
     Authorization의 Bearer에 파이어베이스에서 받은 JWT 방식의 토큰을 넣는다.
