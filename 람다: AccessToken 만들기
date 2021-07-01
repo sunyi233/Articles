@@ -1,3 +1,15 @@
 import base64
 
 AccessToken = str(base64.b64encode(str(uuid.uuid4()).encode("utf-8")), "utf-8")
+
+
+
+
+
+
+
+    # make and add HAT
+    HAT = str(base64.b64encode(str(uuid.uuid4()).encode("utf-8")), "utf-8")
+    Timestamp = math.trunc(Decimal(time.time()))
+    
+    resource('dynamodb').Table('').put_item(Item = {'HAT':HAT, 'MID':MID, 'MID':MID, 'Timestamp':Timestamp})
