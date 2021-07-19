@@ -1,27 +1,59 @@
 Frontend
-
-window.onload = () =>
-{
-    URLToPost = '';
-    BodyToPost = {'GAT':localStorage.getItem('MyGAT')};
-    HeadersToPost = {'Authorization': 'Bearer 111'};
-    fetch(URLToPost, {method:'POST', headers:HeadersToPost, body:JSON.stringify(BodyToPost)}).then(Result => Result.json().then(Data => SetBalances(Data)));
-    function SetBalances(Result)
+    window.onload = () =>
     {
-        if (Result == "Error")
-            location = "/";
+        URLToPost = '';
+        BodyToPost = {'GAT':localStorage.getItem('MyGAT')};
+        HeadersToPost = {'Authorization': 'Bearer 111'};
+        fetch(URLToPost, {method:'POST', headers:HeadersToPost, body:JSON.stringify(BodyToPost)}).then(Result => Result.json().then(Data => SetBalances(Data)));
+        function SetBalances(Result)
+        {
+            if (Result == "Error")
+                location = "/";
 
-        document.getElementById('BTCBalance').innerText = Result.BTC + " BTC";
-        document.getElementById('ETHBalance').innerText = Result.ETH + " ETH";
-        document.getElementById('LTCBalance').innerText = Result.LTC + " LTC";
+            document.getElementById('BTCBalance').innerText = Result.BTC + " BTC";
+            document.getElementById('ETHBalance').innerText = Result.ETH + " ETH";
+            document.getElementById('LTCBalance').innerText = Result.LTC + " LTC";
+        }
     }
-}
 
 Backend
+    Access-Control-Allow-Origin: Frontend의 URL
+    Access-Control-Allow-Headers: authorization
+    Access-Control-Allow-Methods: POST
 
-Access-Control-Allow-Origin: Frontend의 URL
-Access-Control-Allow-Headers: authorization
-Access-Control-Allow-Methods: POST
+Frontend async/await
+    async function Enter()
+    {
+        if (_GoogleAuthInstance == null)
+            return;
+
+        if (_GoogleAuthInstance.isSignedIn.get() == false)
+        {
+            // try to pair
+            _GoogleAuthInstance.isSignedIn.listen(ProcessSignedIn);
+            _GoogleAuthInstance.signIn();
+
+            return;
+        }
+
+        // fetch
+        let MyProfile = _GoogleAuthInstance.currentUser.get().getBasicProfile();
+        BodyToPost = {'GAID':MyProfile.getId()};
+
+        let FetchResult = await fetch(_APIEndpoint + 'GetPermission', {method:'POST', body:JSON.stringify(BodyToPost)});
+        if (!FetchResult.ok)
+            return;
+
+        // when fetch succeded
+        let MyGAT = _GoogleAuthInstance.currentUser.get().getAuthResponse(true).access_token;
+
+        window.localStorage.setItem('MyGAT', MyGAT);
+        window.localStorage.setItem('MyGAE', MyProfile.getEmail());
+        window.localStorage.setItem('MyGAN', MyProfile.getName());
+
+        window.location = "/Dashboard.html";
+    }
+
 
 
 
