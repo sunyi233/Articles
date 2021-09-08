@@ -3,16 +3,17 @@
     <head>
         <title>Sample</title>
         <link rel="shortcut icon" href="#">
-
-        <meta charset="UTF-8">
-
+        
+        <meta charset="UTF-8"/>
+        <meta name="viewport" content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0"/>
+        
         <link rel="stylesheet" href="/Web.css">
         <style>
         </style>
 
         <script src="/Web.js"></script>
         <script>
-            window.onload = () => {}
+            window.onload = async () => {}
         </script>
     </head>
     <body>
