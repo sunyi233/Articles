@@ -21,8 +21,9 @@ Frontend
     FetchResult는 promise object라서 json으로 바꿔서 처리한다. Data는 json object이다.
     
     
-    
-    
+    fetch('https://www.googleapis.com/oauth2/v1/tokeninfo?access_token=' + MyGAT).then(Result => Result.json().then(Data => console.log(Data)));
+
+
 
 
 
