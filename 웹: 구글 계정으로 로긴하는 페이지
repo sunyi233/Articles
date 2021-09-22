@@ -82,12 +82,12 @@
 
 위에서 얻은 MyGAT에서 사용자 정보를 얻을 수 있다.
 
+https://www.googleapis.com/oauth2/v1/tokeninfo?access_token=<MyGAT>
+https://www.googleapis.com/oauth2/v1/userinfo?access_token=<MyGAT>
+
+
+
 fetch('https://www.googleapis.com/oauth2/v1/tokeninfo?access_token=' + MyGAT).then(Result => Result.json().then(Data => console.log(Data)));
-
-
-
-
-
 
 
 
