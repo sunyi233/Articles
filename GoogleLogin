@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>블록체이너리</title>
+
+        <meta charset="UTF-8">
+
+        <link rel="stylesheet" href="/Web.css?rasedrsetyhetrdhgysdh">
+        <style>
+            body
+            {
+                padding-top:300px;
+                text-align:center;
+            }
+        </style>
+
+        <script src="/Web.js"></script>
+        <script src="https://apis.google.com/js/api.js" onload="gapi.load('client:auth2', Set_GoogleAuthInstance);" defer></script>
+        <script>
+            let _GoogleAuthInstance;
+
+            window.onload = () => {};
+
+            function Set_GoogleAuthInstance()
+            {
+                _GoogleAuthInstance = null;
+
+                const GoogleOAuthClientID = '';
+                gapi.client.init({clientId:GoogleOAuthClientID, scope:'email profile'}).then(() => {_GoogleAuthInstance = gapi.auth2.getAuthInstance();});
+            }
+        </script>
+    </head>
+    <body>
+        <a class="btn btn-primary" href="javascript:Enter();">들어가기</a>
+        <script>
+            async function Enter()
+            {
+                // check things
+                if (_GoogleAuthInstance == null)
+                    return;
+
+                if (_GoogleAuthInstance.isSignedIn.get() == false)
+                {
+                    // try to pair
+                    _GoogleAuthInstance.isSignedIn.listen(ProcessSignedIn);
+                    _GoogleAuthInstance.signIn();
+
+                    return;
+                }
+
+                // set MyProfile
+                let MyProfile = _GoogleAuthInstance.currentUser.get().getBasicProfile();
+
+                // set FetchResult
+                let BodyToPost = {'GAID':MyProfile.getId()};
+                let FetchResult;
+                try {FetchResult = await fetch(_APIEndpoint + 'GetPermission', {method:'POST', body:JSON.stringify(BodyToPost)});} catch(Error) {return;}
+                if (FetchResult.ok == false)
+                    return;
+
+                // when fetch succeded
+                let MyGAT = _GoogleAuthInstance.currentUser.get().getAuthResponse(true).access_token;
+
+                window.localStorage.setItem('MyGAT', MyGAT);
+                window.localStorage.setItem('MyGAE', MyProfile.getEmail());
+                window.localStorage.setItem('MyGAN', MyProfile.getName());
+
+                window.location = "/Dashboard.html";
+            }
+        </script>
+    </body>
+</html>
