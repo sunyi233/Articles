@@ -1,6 +1,89 @@
 <!DOCTYPE html>
 <html>
     <head>
+        <title>블록체이너리</title>
+
+        <meta charset="UTF-8">
+
+        <link rel="stylesheet" href="/Web.css?rasedrsetyhetrdhgysdh">
+        <style>
+            body
+            {
+                padding-top:300px;
+                text-align:center;
+            }
+        </style>
+
+        <script src="/Web.js"></script>
+        <script src="https://apis.google.com/js/api.js" onload="gapi.load('client:auth2', Set_GoogleAuthInstance);" defer></script>
+        <script>
+            let _GoogleAuthInstance;
+            let _MyGAT;
+
+            window.onload = () => {};
+
+            function Set_GoogleAuthInstance()
+            {
+                _GoogleAuthInstance = null;
+
+                const GoogleOAuthClientID = '1085916427441-knj22jj9vmpl7kgm6gnv7ujs1co7b40m.apps.googleusercontent.com';
+                gapi.client.init({clientId:GoogleOAuthClientID, scope:'email profile'}).then(() => {ProcessSignIn()});
+                
+            }
+
+            function ProcessSignIn()
+            {
+                // set _GoogleAuthInstance
+                _GoogleAuthInstance = gapi.auth2.getAuthInstance();
+                if (_GoogleAuthInstance == null)
+                    return;
+
+                // check pairing
+                if (_GoogleAuthInstance.isSignedIn.get() == false)
+                {
+                    // try to pair
+                    _GoogleAuthInstance.isSignedIn.listen(SetMyGAT);
+                    _GoogleAuthInstance.signIn();
+
+                    return;
+                }
+
+                // set _MyGAT
+                SetMyGAT();
+            }
+
+            function SetMyGAT()
+            {
+                _MyGAT = _GoogleAuthInstance.currentUser.get().getAuthResponse(true).access_token;
+                alert(_MyGAT);
+
+                let MyProfile = _GoogleAuthInstance.currentUser.get().getBasicProfile();
+
+                window.localStorage.setItem('MyGAT', _MyGAT);
+                window.localStorage.setItem('MyGAE', MyProfile.getEmail());
+                window.localStorage.setItem('MyGAN', MyProfile.getName());
+            }
+        </script>
+    </head>
+    <body>
+    </body>
+</html>
+=================================================================================================================================================================
+
+
+
+
+
+
+
+
+
+
+
+
+<!DOCTYPE html>
+<html>
+    <head>
         <title>test.blockchainery.org</title>
         <link rel="shortcut icon" href="#">
         
