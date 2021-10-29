@@ -1,3 +1,38 @@
+1. 신식
+
+<script src="https://accounts.google.com/gsi/client" async defer></script>
+<script>
+    window.onload = function ()
+    {
+	let MyIDT = localStorage.getItem('MyIDT');
+
+	if (MyIDT == null)
+	{
+	    StartGoogleSignIn();
+	}
+	else
+	{
+	    // check MyIDT to call api function
+	    console.log(MyIDT);
+	}
+    }
+
+    function StartGoogleSignIn()
+    {
+	const GoogleOAuthClientID = '794708382491-ugbpvuuc16h6f4fmeg6bm6f7bbpb6rpn.apps.googleusercontent.com';
+	google.accounts.id.initialize({client_id:GoogleOAuthClientID, auto_select:true, callback:OnSuccess});
+
+	google.accounts.id.prompt();
+    }
+
+    function OnSuccess(Result)
+    {
+	window.localStorage.setItem('MyIDT', Result.credential);
+    }
+</script>
+
+2. 구식
+
 <!DOCTYPE html>
 <html>
     <head>
