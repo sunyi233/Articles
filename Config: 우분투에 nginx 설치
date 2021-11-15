@@ -1,7 +1,0 @@
-https://velog.io/@byjihye/ubuntu2
-
-conf file 위치: /etc/nginx/sites-available
-웹 소스 위치: /var/www/html/<도메인>
-
-nginx restart: sudo systemctl restart nginx
-
