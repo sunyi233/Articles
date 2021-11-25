@@ -1,1 +1,0 @@
-PostedParameters['PasswordEncrypted'] = hashlib.sha256(PostedParameters['Password'].encode()).hexdigest()
