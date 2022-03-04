@@ -1,1 +1,0 @@
-return {'statusCode':200, 'body':json.dumps(Result, ensure_ascii = False)}
