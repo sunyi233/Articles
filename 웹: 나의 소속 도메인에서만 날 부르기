@@ -1,9 +1,0 @@
-아래와 같이 JS를 구성하면 오직 내가 속한 도메인에서만 나를 부를 수 있다.
-
-if(document.referrer.split('/')[2] != window.location.hostname)
-    location = "/";
-    
-    
-    
-    
-    
