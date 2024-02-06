@@ -6,7 +6,7 @@
 async function CallHttpApi(Function, AccessToken, Body)
 {
     // set Endpoint
-    const Endpoint = 'https://ptlkgq6ohf.execute-api.ap-northeast-2.amazonaws.com/';
+    const Endpoint = 'https://.......east-2.amazonaws.com/';
     
     // set Options
     let Options = {method: 'POST'};
