@@ -1,6 +1,44 @@
 ### 들어가는 말
 웹은 html, css, js로 구성된 파일을 브라우저가 읽어서 실행하는 페이지들의 모임입니다. CSS는 화면 꾸미기와 화면 레이아웃 잡기의 역할을 합니다. 꾸미기 기능을 빼면 레이아웃 잡는 것은 페이지의 구조를 잡는 매우 중요한 일입니다. 화면의 뼈대는 html, css로 잡는데 이걸 js를 통해서 동적으로 구현하는 것이 최신의 추제입니다. 그래서 좋은 예제들을 여기에 기록해서 쉽게 찾아 쓰게 하려고 합니다.
 
+### html sample
+```
+<!doctype html>
+<html>
+    <head>
+        <link rel="icon" href="/contents/_favicon.png">
+        <title>샵리저브</title>
+
+        <style>
+            @import url("https://fonts.googleapis.com/css?family=Nanum Gothic");
+            @import url("https://cdn.jsdelivr.net/npm/bootstrap@5.1.1/dist/css/bootstrap.min.css");
+            @import url("https://cdn.jsdelivr.net/npm/simple-jscalendar@1.4.5/source/jsCalendar.min.css");
+
+            body {font-family: 'Nanum Gothic'; font-size: 16px;}
+        </style>
+
+        <script src="https://cdn.jsdelivr.net/npm/simple-jscalendar@1.4.5/source/jsCalendar.min.js"></script>
+        <script type="module">
+            // imports
+            import {Start} from "/app.mjs";
+
+            // call the first function Start asynchronously
+            window.onload = async () => {await Start();}
+        </script>
+    </head>
+    <body>
+    </body>
+</html>
+```
+SPA의 기본이 되는 유일한 페이지입니다. 이 페이지는 head와 body로 구성되어 있는데 body는 텅 비어 있습니다. 여기에 content를 채우는 것이죠. head엔 각종 필요한 준비가 나열되어 있습니다.
+1문단은 이 페이지의 제목인데 그림 제목과 글자 제목으로 구성되어 있습니다.
+2문단은 지금은 비어 있습니다. 여기엔 각종 meta 등의 요소가 기록됩니다.
+3문단은 스타일입니다. 스타일은 외부에서 빌려올 수도 있고 내가 직접 기록할 수도 있습니다. 여기에 기술되는 것은 body 안의 내용에 다 영향을 주니까 일종의 전역 변수 같은 개념입니다.
+4문단은 JS입니다. 필요한 외부 라이브러리를 여기에 설정할 수 있고 우리 내부에 있는 app.mjs 모듈을 불러 올 수도 있습니다. 이 모듈 안에 있는 Start라는 함수를 불러서 이 페이지가 동작하기 시작합니다.
+
+
+
+
 ### http api 부르기
 ```
 async function CallHttpApi(Function, AccessToken, Body)
