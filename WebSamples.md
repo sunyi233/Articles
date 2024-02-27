@@ -36,9 +36,6 @@ SPA의 기본이 되는 유일한 페이지입니다. 이 페이지는 head와 b
 3문단은 스타일입니다. 스타일은 외부에서 빌려올 수도 있고 내가 직접 기록할 수도 있습니다. 여기에 기술되는 것은 body 안의 내용에 다 영향을 주니까 일종의 전역 변수 같은 개념입니다.
 4문단은 JS입니다. 필요한 외부 라이브러리를 여기에 설정할 수 있고 우리 내부에 있는 app.mjs 모듈을 불러 올 수도 있습니다. 이 모듈 안에 있는 Start라는 함수를 불러서 이 페이지가 동작하기 시작합니다.
 
-
-
-
 ### http api 부르기
 ```
 async function CallHttpApi(Function, AccessToken, Body)
@@ -66,4 +63,54 @@ async function CallHttpApi(Function, AccessToken, Body)
 }
 ```
 ajax의 기초가 되는 함수입니다. 이 함수의 핵심은 fetch이고 이 함수를 실행하기 전에 준비 작업으로 Endpoint와 Options를 설정합니다. 이 함수의 return은 크게 3곳인데 물리적인 에러 등 더 이상 진행할 수 없을 때는 return null을 합니다. 그런데 이건 형식적으로 이 함수 부른 곳에 알려 줄 목적이고 내용적으론 location.reload();를 해서 이 페이지를 완전히 새로 부르는 것이 좋습니다. 물리적으로 통신이 안 되거나 권한이 부족한 경우라서 더 이상 아무 진행도 할 수 없기 떄문입니다. 정상적인 리턴이라도 항상 성공이라는 의미는 아닙니다. 에러가 있어 성공적으로 이 에러를 보고할 필요도 있기에 최종적으로 Result엔 코드와 내용이 들어간 스트링이 들어갑니다.
+
+### 그림 올리기
+```
+<div style="width:50%; padding-left:10px;">
+    <input id='PhotoB' type="file" onchange="LoadPhoto(this)">
+    <img id='ViewPhotoB' style="width:100%;margin-top:20px;vertical-align:top;">
+</div>
+<script>
+    function LoadPhoto(PhotoInput)
+    {
+        var PhotoFR = new FileReader();
+        PhotoFR.readAsDataURL(PhotoInput.files[0]);
+        PhotoFR.onloadend = event =>
+        {
+            var PhotoImg = new Image();
+            PhotoImg.src = PhotoFR.result;
+            PhotoImg.onload = function()
+            {
+                var PhotoCanvas = document.createElement('canvas');
+                PhotoCanvas.width = 600;
+                PhotoCanvas.height = (PhotoImg.height * PhotoCanvas.width) / PhotoImg.width;
+                PhotoCanvas.getContext("2d").drawImage(this, 0, 0, PhotoCanvas.width, PhotoCanvas.height);
+
+                var PhotoFD = new FormData();
+                PhotoFD.append("PhotoName", PhotoInput.id);
+                PhotoFD.append("Src", PhotoCanvas.toDataURL('image/jpeg', 0.5));
+
+                var PhotoXHR = new XMLHttpRequest();
+                PhotoXHR.open("POST", "/api/UploadPhoto.php");
+                PhotoXHR.send(PhotoFD);
+                PhotoXHR.onload = function ()
+                {
+                    if(PhotoXHR.responseText == '')
+                    {
+                        location = '/';
+                        return;
+                    }
+
+                    document.getElementById('View' + PhotoInput.id).src = PhotoXHR.responseText;
+                };
+            }
+        };
+    }
+</script>
+```
+PhotoB 버튼을 눌러서 그림을 올리면 base64 text로 가공되어서 서버로 보내진다.
+
+
+
+
 
