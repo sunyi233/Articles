@@ -9,15 +9,15 @@
         <link rel="icon" href="/contents/_favicon.png">
         <title>샵리저브</title>
 
+        <meta name="viewport" content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0"/>
+
         <style>
             @import url("https://fonts.googleapis.com/css?family=Nanum Gothic");
             @import url("https://cdn.jsdelivr.net/npm/bootstrap@5.1.1/dist/css/bootstrap.min.css");
-            @import url("https://cdn.jsdelivr.net/npm/simple-jscalendar@1.4.5/source/jsCalendar.min.css");
 
             body {font-family: 'Nanum Gothic'; font-size: 16px;}
         </style>
 
-        <script src="https://cdn.jsdelivr.net/npm/simple-jscalendar@1.4.5/source/jsCalendar.min.js"></script>
         <script type="module">
             // imports
             import {Start} from "/app.mjs";
