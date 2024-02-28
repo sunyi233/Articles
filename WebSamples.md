@@ -9,7 +9,8 @@
         <link rel="icon" href="/contents/_favicon.png">
         <title>샵리저브</title>
 
-        <meta name="viewport" content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0"/>
+        <link rel="manifest" href="/manifest.json">
+        <meta name="viewport" content="width=device-width, user-scalable=no, initial-scale=1.0"/>
 
         <style>
             @import url("https://fonts.googleapis.com/css?family=Nanum Gothic");
@@ -19,10 +20,8 @@
         </style>
 
         <script type="module">
-            // imports
             import {Start} from "/app.mjs";
 
-            // call the first function Start asynchronously
             window.onload = async () => {await Start();}
         </script>
     </head>
@@ -32,7 +31,7 @@
 ```
 SPA의 기본이 되는 유일한 페이지입니다. 이 페이지는 head와 body로 구성되어 있는데 body는 텅 비어 있습니다. 여기에 content를 채우는 것이죠. head엔 각종 필요한 준비가 나열되어 있습니다.
 1문단은 이 페이지의 제목인데 그림 제목과 글자 제목으로 구성되어 있습니다.
-2문단은 지금은 비어 있습니다. 여기엔 각종 meta 등의 요소가 기록됩니다.
+2문단은 각종 meta 등의 요소가 기록됩니다. 뷰포트를 설정해서 모바일에서도 잘 보이게 합니다.
 3문단은 스타일입니다. 스타일은 외부에서 빌려올 수도 있고 내가 직접 기록할 수도 있습니다. 여기에 기술되는 것은 body 안의 내용에 다 영향을 주니까 일종의 전역 변수 같은 개념입니다.
 4문단은 JS입니다. 필요한 외부 라이브러리를 여기에 설정할 수 있고 우리 내부에 있는 app.mjs 모듈을 불러 올 수도 있습니다. 이 모듈 안에 있는 Start라는 함수를 불러서 이 페이지가 동작하기 시작합니다.
 
