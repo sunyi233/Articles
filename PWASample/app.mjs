@@ -6,7 +6,9 @@ export async function Start()
     // check if notification not granted: the permission cannot be denied I think it's a bug
     if (Notification.permission != 'granted') {FillPageBody('notification'); return;}
 
-
+    // check if no mobile number
+    if (localStorage.getItem('MobileNumber') == null) {FillPageBody('pairing'); return;}
+    
 
 
     
@@ -16,24 +18,6 @@ export async function Start()
     
     
     
-    
-    /*
-    
-    navigator.serviceWorker.controller.postMessage({Title: '', Body: '222'});
-    
-    const Message = {};
-    Message.Title = '111';
-    Message.Body = '222';
-
-    navigator.serviceWorker.controller.postMessage(Message);
-
-
-                (await navigator.serviceWorker.getRegistration()).active.postMessage({type: 'ShowNotification'});
-
-
-
-
-    */
 
 }
 
@@ -54,6 +38,56 @@ async function FillPageBody(ContentName)
 
             document.getElementById('denied').style.display = 'none';
             break;
+
+        case 'pairing':
+
+
+
+            // if (localStorage.getItem('MobileNumber') == null) {FillPageBody('personalization'); return;}
+
+
+
+
+
+            break;
+
+
+
+
+        /*
+        localStorage.setItem('DeviceToken', DeviceToken);
+        
+        navigator.serviceWorker.controller.postMessage({Title: '', Body: '222'});
+        
+        const Message = {};
+        Message.Title = '111';
+        Message.Body = '222';
+
+        navigator.serviceWorker.controller.postMessage(Message);
+
+
+                    (await navigator.serviceWorker.getRegistration()).active.postMessage({type: 'ShowNotification'});
+
+
+
+
+        */
+
+
+        /*
+
+
+        // DeviceToken
+        const VapidKey = 'BIrzKtY5_B5TnAdY7EYPuT9zhDaVYr-wL1LFnUnHEil6YDb09eeBazLVEi4Q5m_mKtLgDoRRbbTQnj5Fipigo30'; // should be updated!
+        const ServiceWorkerRegistration = await navigator.serviceWorker.getRegistration();
+        const DeviceToken = await getToken(getMessaging(), {vapidKey: VapidKey, serviceWorkerRegistration: ServiceWorkerRegistration});
+
+        */
+
+
+
+
+
     }
 }
 
@@ -69,24 +103,6 @@ function ConfigNotification()
                 // Firebase
                 const FirebaseConfig = {apiKey: "AIzaSyD3iHnDRANI2tlBdycNVA2ZtQ3XduF1GmY", authDomain: "shopreserve-4e2c0.firebaseapp.com", projectId: "shopreserve-4e2c0", storageBucket: "shopreserve-4e2c0.appspot.com", messagingSenderId: "711185990354", appId: "1:711185990354:web:7392e10536057ae721a30b", measurementId: "G-EH64FGZCGR"};
                 getAnalytics(initializeApp(FirebaseConfig));
-
-
-
-
-                /*
-
-
-                // DeviceToken
-                const VapidKey = 'BIrzKtY5_B5TnAdY7EYPuT9zhDaVYr-wL1LFnUnHEil6YDb09eeBazLVEi4Q5m_mKtLgDoRRbbTQnj5Fipigo30'; // should be updated!
-                const ServiceWorkerRegistration = await navigator.serviceWorker.getRegistration();
-                const DeviceToken = await getToken(getMessaging(), {vapidKey: VapidKey, serviceWorkerRegistration: ServiceWorkerRegistration});
-
-                */
-
-
-
-
-
 
                 location.reload();
             });
