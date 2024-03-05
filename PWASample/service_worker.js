@@ -1,3 +1,13 @@
+self.addEventListener('push', (Event) => {ThePush = Event.data.json().notification; Event.waitUntil(self.registration.showNotification(ThePush.title, {body: ThePush.body}));});
+
+
+
+
+
+/*
+
+
+
 self.addEventListener('message', (Event) => {
 	
 	
@@ -20,7 +30,9 @@ self.addEventListener('message', (Event) => {
 
 
 
-self.addEventListener('push', (Event) => {ThePush = Event.data.json().notification; Event.waitUntil(self.registration.showNotification(ThePush.title, {body: ThePush.body, icon: ThePush.icon, data: ThePush.click_action}));});
 
 
+// {body: ThePush.body, icon: ThePush.icon, data: ThePush.click_action}
 
+
+*/

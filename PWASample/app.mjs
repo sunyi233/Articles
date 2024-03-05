@@ -41,37 +41,92 @@ async function FillPageBody(ContentName)
         case 'notification':
             if (Notification.permission != 'default') return;
 
-            document.getElementById('button_notification_allow').addEventListener('click', (Event) => {Event.target.style.display = 'none'; ConfigNotification();});
-
             document.getElementById('denied').style.display = 'none';
+            document.getElementById('button_notification_allow').addEventListener('click', (Event) => {Event.target.style.display = 'none'; ConfigNotification();});
             break;
 
         case 'pairing':
+            // fill things
+            document.getElementById('terms').innerText = await (await fetch('/contents/_terms.txt')).text();
+
             // Firebase
             const FirebaseConfig = {apiKey: "AIzaSyD3iHnDRANI2tlBdycNVA2ZtQ3XduF1GmY", authDomain: "shopreserve-4e2c0.firebaseapp.com", projectId: "shopreserve-4e2c0", storageBucket: "shopreserve-4e2c0.appspot.com", messagingSenderId: "711185990354", appId: "1:711185990354:web:7392e10536057ae721a30b", measurementId: "G-EH64FGZCGR"};
             getAnalytics(initializeApp(FirebaseConfig));
 
-            window.RecaptchaVerifier = new RecaptchaVerifier('recaptcha_container', {'size': 'invisible', 'callback': (Response) => {alert(Response)}}, getAuth());
+            window.RecaptchaVerifier = new RecaptchaVerifier('recaptcha_container', {'size': 'invisible'}, getAuth());
 
-            const VapidKey = 'BGRAUjZpuuJ-3SRQsYAwCk2J91aKvMQdWzboVeFKh9LMVnr61XvxjY3G0kKuqtJm4ChnRa9TYhekel3VEE1UADo'; // should be updated!
+            const VapidKey = 'BGRAUjZpuuJ-3SRQsYAwCk2J91aKvMQdWzboVeFKh9LMVnr61XvxjY3G0kKuqtJm4ChnRa9TYhekel3VEE1UADo';
+            window.DeviceToken = await getToken(getMessaging(), {vapidKey: VapidKey, serviceWorkerRegistration: await navigator.serviceWorker.getRegistration()});
+
+            // buttons
+            document.getElementById('button_get_code').addEventListener('click', () => {
+                const PartialMobileNumber = document.getElementById('partial_mobile_number').value.trim();
+                if (PartialMobileNumber == '') return;
+
+                signInWithPhoneNumber(getAuth(), '+8210' + PartialMobileNumber, window.RecaptchaVerifier).then((Result) => {window.ConfirmationResult = Result;}).catch(() => {return;});
+            });
+
+            document.getElementById('button_submit').addEventListener('click', () => {
+                // check checkbox
+                if (document.getElementById('agreement_terms').checked == false) {alert('이용 약관에 동의해 주세요.');return;}
+
+                // check code
+                if (window.ConfirmationResult == null) return;
+
+                window.ConfirmationResult.confirm(document.getElementById('authentication_code').value).then((Result) => {FinishPairing(Result.user.accessToken, window.DeviceToken);}).catch(() => {alert('인증 번호를 확인해 주세요.');});
+            });
+
+
+
+
+
+
+
+
+
+            /*
+
+
+            // fill things
+            document.getElementById('terms').innerText = await (await fetch('/contents/_terms.txt')).text();
+            //document.getElementById('pii').innerText = await (await fetch('/contents/_pii.txt')).text();
+
+            // Firebase
+            const FirebaseConfig = {apiKey: "AIzaSyD3iHnDRANI2tlBdycNVA2ZtQ3XduF1GmY", authDomain: "shopreserve-4e2c0.firebaseapp.com", projectId: "shopreserve-4e2c0", storageBucket: "shopreserve-4e2c0.appspot.com", messagingSenderId: "711185990354", appId: "1:711185990354:web:7392e10536057ae721a30b", measurementId: "G-EH64FGZCGR"};
+            getAnalytics(initializeApp(FirebaseConfig));
+
+            const TheAuth = getAuth();
+            window.RecaptchaVerifier = new RecaptchaVerifier('recaptcha_container', {'size': 'invisible'}, TheAuth);
+
+            const VapidKey = 'BGRAUjZpuuJ-3SRQsYAwCk2J91aKvMQdWzboVeFKh9LMVnr61XvxjY3G0kKuqtJm4ChnRa9TYhekel3VEE1UADo';
             const DeviceToken = await getToken(getMessaging(), {vapidKey: VapidKey, serviceWorkerRegistration: await navigator.serviceWorker.getRegistration()});
 
+            // buttons
+            //let ConfirmationResult = null;
+
+            document.getElementById('button_get_code').addEventListener('click', () => {
+                const PartialMobileNumber = document.getElementById('partial_mobile_number').value.trim();
+                if (PartialMobileNumber == '') return;
+
+                signInWithPhoneNumber(getAuth(), '+8210' + PartialMobileNumber, window.RecaptchaVerifier).then((Result) => {window.confirmationResult = Result;}).catch(() => {return;});
+            });
+
+            document.getElementById('button_submit').addEventListener('click', () => {
+                // check checkbox
+                if (document.getElementById('agreement_terms').checked == false) {alert('이용 약관에 동의해 주세요.');return;}
+
+                // check code
+                if (window.confirmationResult == null) return;
+
+                window.confirmationResult.confirm(document.getElementById('authentication_code').value).then((Result) => {FinishPairing(Result.user.accessToken, DeviceToken);}).catch(() => {alert('인증 번호를 확인해 주세요.');});
+            });
 
 
 
 
-
-
-
-
-
+            */
 
             break;
-
-
-
-
-
 
 
 
@@ -79,10 +134,32 @@ async function FillPageBody(ContentName)
     }
 }
 
+function FinishPairing(IDToken, DeviceToken)
+{
+
+
+
+    alert(IDToken);
+
+
+    
+
+    // check two checks
+
+
+    // call api
+
+
+
+
+    // FinishPairing(Result.user.accessToken, DeviceToken);
+
+    
+}
+
 function ConfigNotification()
 {
-    Notification.requestPermission().then((Permission) => 
-    {
+    Notification.requestPermission().then((Permission) => {
         if (Permission == 'granted')
         {
             // register service worker
