@@ -1,7 +1,17 @@
 export async function Start()
 {
     // check if not pwa
-    if (window.matchMedia('(display-mode: standalone)').matches == false) {FillPageBody('landing'); return;}
+    if (window.matchMedia('(display-mode: standalone)').matches == false)
+    {
+        // 카톡 내부 브라우저 아 정말~~~
+        if (navigator.userAgent.indexOf('KAKAO') >= 0)
+        {
+            location.href = 'kakaotalk://web/openExternal?url=' + encodeURIComponent(location);
+            return;
+        }
+
+        FillPageBody('landing'); return;
+    }
 
     // check if notification not granted: the permission cannot be denied I think it's a bug
     if (Notification.permission != 'granted') {FillPageBody('notification'); return;}
@@ -20,11 +30,18 @@ async function FillPageBody(ContentName)
     switch(ContentName)
     {
         case 'notification':
-            if (Notification.permission != 'default') return;
+            switch(Notification.permission) // granted case does not come to here
+            {
+                case 'default':
+                    document.getElementById('denied').style.display = 'none';
+                    document.getElementById('button_notification_allow').addEventListener('click', () => {Notification.requestPermission().then(() => {location.reload();});});
+                    break;
 
-            // default case
-            document.getElementById('denied').style.display = 'none';
-            document.getElementById('button_notification_allow').addEventListener('click', () => {SaveDeviceToken();});
+                case 'denied':
+                    document.getElementById('default').style.display = 'none';
+                    document.getElementById('denied').style.display = '';
+                    break;
+            }
             break;
 
         case 'pairing':
@@ -38,6 +55,31 @@ async function FillPageBody(ContentName)
             // terms
             document.getElementById('terms').innerText = await (await fetch('/contents/_terms.txt')).text();
             document.getElementById('agreement_terms').addEventListener('click', () => {document.getElementById('agreement_terms').checked ? LoginButton.style.display = 'inline-block' : LoginButton.style.display = 'none';});
+
+            // save DeviceToken
+            const FirebaseConfig = {apiKey: "AIzaSyDW7xVeCbEG3q1ib9vpb1nJwzaLVujOfZg", authDomain: "purunbada-57817.firebaseapp.com", projectId: "purunbada-57817", storageBucket: "purunbada-57817.appspot.com", messagingSenderId: "937269660039", appId: "1:937269660039:web:585a8ef5e77b5ee3bf6b22", measurementId: "G-CC63K0K8CR"};
+            const VapidKey = 'BGN75FEWvGqLI1iO3oH_NMePa17X713W_wXmjgeCXlyHEozfYKAuohq8Lv3FuIOX7rovxnC63CfdU-4pJUvUF4Y'; // from Web Push certificates -> Key pair
+            const DeviceToken = await getToken(getMessaging(initializeApp(FirebaseConfig)), {vapidKey: VapidKey});
+
+            localStorage.setItem('DeviceToken', DeviceToken);
+
+
+
+
+
+              
+
+
+
+
+
+
+
+
+
+
+
+
             break;
     }
 }
@@ -46,6 +88,12 @@ async function Pair(IDToken) // adding two infos to the app
 {
 
     window.document.body.innerHTML = IDToken + '<br><br>' + localStorage.getItem('DeviceToken');
+
+
+
+
+    
+    
 
 
 
@@ -73,19 +121,21 @@ async function Pair(IDToken) // adding two infos to the app
 
 }
 
-async function SaveDeviceToken()
+
+
+/*
+
+const sendNotification = async () =>
 {
-    // check permission
-    const Permission = await Notification.requestPermission();
-    if (Permission != 'granted') {document.getElementById('default').style.display = 'none'; document.getElementById('denied').style.display = ''; return;}
 
-    // Firebase
-    const FirebaseConfig = {apiKey: "AIzaSyDW7xVeCbEG3q1ib9vpb1nJwzaLVujOfZg", authDomain: "purunbada-57817.firebaseapp.com", projectId: "purunbada-57817", storageBucket: "purunbada-57817.appspot.com", messagingSenderId: "937269660039", appId: "1:937269660039:web:585a8ef5e77b5ee3bf6b22", measurementId: "G-CC63K0K8CR"};
-    const VapidKey = 'BGN75FEWvGqLI1iO3oH_NMePa17X713W_wXmjgeCXlyHEozfYKAuohq8Lv3FuIOX7rovxnC63CfdU-4pJUvUF4Y'; // from Web Push certificates -> Key pair
-    const DeviceToken = await getToken(getMessaging(initializeApp(FirebaseConfig)), {vapidKey: VapidKey});
 
-    localStorage.setItem('DeviceToken', DeviceToken);
 
-    // refresh
-    location.reload();
-}
+
+
+   
+   
+};
+document.getElementById('send').addEventListener('click', sendNotification);
+
+
+*/
