@@ -1,0 +1,148 @@
+<!doctype html>
+<html>
+    <head>
+        <title>API Talk</title>
+
+        <meta name="viewport" content="width=device-width, user-scalable=no, initial-scale=1.0"/>
+
+        <style>
+            @import url("https://fonts.googleapis.com/css?family=Nanum Gothic");
+            @import url("https://cdn.jsdelivr.net/npm/bootstrap@5.1.1/dist/css/bootstrap.min.css");
+
+            body {font-family: 'Nanum Gothic'; font-size: 16px;}
+
+
+
+
+
+
+
+            main {display: flex; margin: auto; margin-top: 3rem; width: fit-content;}
+
+
+
+
+
+
+
+
+
+
+
+        </style>
+
+        <script type="module">
+            import {Start} from "/app.mjs";
+
+            window.onload = async () => {await Start();}
+        </script>
+    </head>
+    <body>
+        <main>
+            <div style="margin-right: 3rem; width: 40rem;">
+                <div class="mb-3">
+                    <label class="form-label">Endpoint</label>
+                    <input type="text" class="form-control" id="Endpoint" placeholder="필수">
+                </div>
+    
+                <div class="mb-3">
+                    <label class="form-label">Function</label>
+                    <input type="text" class="form-control" id="Function" placeholder="필수">
+                </div>
+    
+                <div class="mb-3">
+                    <label class="form-label">Access token</label>
+                    <input type="text" class="form-control" id="BearerToken">
+                </div>
+    
+                <div class="mb-3">
+                    <div style="display:flex; justify-content: space-between;">
+                        <label class="form-label">Body</label>
+
+                        <a id="get_gidt" style="text-decoration: none; " href="javascript:;">GIDT 삽입</a>
+
+
+
+
+
+
+
+
+
+
+                    </div>
+                    <textarea class="form-control" id="Content" rows="5"></textarea>
+                </div>
+    
+                <div class="mb-3" style="text-align:right;">
+                    <button id="call_api_function" type="button" class="btn btn-outline-primary">요청하기</button>
+                </div>
+    
+                <div>
+                    <textarea class="form-control" id="Result" rows="10" style="background-color:black;"></textarea>
+                </div>
+            </div>
+            <div style="width: 40rem;">
+                
+
+
+
+
+
+
+
+            
+            
+            
+            
+            
+            
+            </div>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+            <!--
+
+
+            
+
+
+            <div style="width: 40rem;          ">
+                <div class="mb-3">
+                    <label class="form-label">WebSocket URL</label>
+                    <input type="text" class="form-control" id="WebSocketURL" placeholder="필수" onkeyup="ProcessEnter(event.keyCode);" onclick="ProcessClose();">
+                </div>
+
+                <div>
+                    <label class="form-label">Messages</label>
+                    <div id="Messages"></div>
+                </div>
+
+                <div>
+                    <input type="text" class="form-control" id="MyMessage" onkeyup="SendMessage(event.keyCode);">
+                </div>
+            </div>
+
+
+
+            -->
+
+
+
+
+        </main>
+
+    </body>
+</html>
