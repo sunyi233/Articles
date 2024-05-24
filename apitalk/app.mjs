@@ -1,53 +1,20 @@
-
-
-
-
-
-
-
-
-
-
 export async function Start()
 {
-
-    // <a id="get_gidt" class="link-offset-2 link-underline link-underline-opacity-0" href="javascript:;" onclick="InsertGIDT();">GIDT 삽입</a>
-
-
     const GetGIDT = async () =>
     {
-    
-    
-    
-        alert('111111');
+        // check cookie
+        if (document.cookie.includes('g_state')) document.cookie = "g_state=; expires=0; path=/;";
 
+        // get gidt
+        const ClientID = '648238993995-5o7ngepm6pt38l80tlqatkkvfq7vagil.apps.googleusercontent.com';
+        google.accounts.id.initialize({auto_select: true, callback: (Result) => {document.getElementById('request_body').value = Result.credential;}, client_id: ClientID, itp_support: true});
 
-
-
-    
-       
-       
+        google.accounts.id.prompt();
     };
     document.getElementById('get_gidt').addEventListener('click', GetGIDT);
 
-
-
-
-
-
-
     const CallAPIFunction = async () =>
     {
-    
-    
-    
-
-
-
-
-
-
-
         // clear
         document.getElementById('Result').value = "";
 
@@ -75,14 +42,11 @@ export async function Start()
         if ([200, 400, 401, 403].includes(FetchResult.status) == true) Result += await FetchResult.text();
 
         document.getElementById('Result').value = Result;
-
-
-
-    
-       
-       
     };
     document.getElementById('call_api_function').addEventListener('click', CallAPIFunction);
+
+
+
 
     
 
@@ -94,6 +58,44 @@ export async function Start()
 
 
 }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 
