@@ -25,41 +25,35 @@
             <div style="margin-right: 3rem; width: 40rem;">
                 <div class="mb-3">
                     <label class="form-label">Endpoint</label>
-                    <input type="text" class="form-control" id="Endpoint" placeholder="필수">
+                    <input id="Endpoint" type="text" class="form-control" placeholder="필수">
                 </div>
                 <div class="mb-3">
                     <label class="form-label">Function</label>
-                    <input type="text" class="form-control" id="Function" placeholder="필수">
+                    <input id="Function" type="text" class="form-control" placeholder="필수">
                 </div>
                 <div class="mb-3">
                     <label class="form-label">Access token</label>
-                    <input type="text" class="form-control" id="BearerToken">
+                    <input id="BearerToken" type="text" class="form-control">
                 </div>
                 <div class="mb-3">
-                    <div style="display:flex; justify-content: space-between;">
-                        <label class="form-label">Body</label>
-                        <a id="get_gidt" style="text-decoration: none; " href="javascript:;">GIDT 삽입</a>
-                    </div>
-                    <textarea class="form-control" id="request_body" rows="5"></textarea>
+                    <div style="display:flex; justify-content: space-between;"><label class="form-label">Body</label><a id="get_gidt" style="text-decoration: none; " href="javascript:;">GIDT 삽입</a></div>
+                    <textarea id="request_body" class="form-control" rows="5"></textarea>
                 </div>
     
                 <div class="mb-3" style="text-align:right;"><button id="call_api_function" type="button" class="btn btn-outline-primary">요청하기</button></div>
     
-                <div><textarea class="form-control" id="Result" rows="10" style="background-color:black;"></textarea></div>
+                <div><textarea class="form-control" id="Result" rows="10" readonly></textarea></div>
             </div>
             <div style="width: 40rem;">
                 <div class="mb-3">
                     <label class="form-label">WebSocket URL</label>
-                    <input type="text" class="form-control" id="WebSocketURL" placeholder="필수" onkeyup="ProcessEnter(event.keyCode);" onclick="ProcessClose();">
+                    <input type="text" class="form-control" id="websocket_url" placeholder="필수">
                 </div>
 
                 <div>
                     <label class="form-label">Messages</label>
-                    <div id="Messages"></div>
-                </div>
-
-                <div>
-                    <input type="text" class="form-control" id="MyMessage" onkeyup="SendMessage(event.keyCode);">
+                    <input id="my_message" type="text" class="form-control mb-3">
+                    <input id="your_message" type="text" class="form-control" readonly>
                 </div>
             </div>
         </main>

@@ -1,5 +1,6 @@
 export async function Start()
 {
+    // get_gidt
     const GetGIDT = async () =>
     {
         // check cookie
@@ -13,6 +14,7 @@ export async function Start()
     };
     document.getElementById('get_gidt').addEventListener('click', GetGIDT);
 
+    // call_api_function
     const CallAPIFunction = async () =>
     {
         // clear
@@ -28,7 +30,7 @@ export async function Start()
         // set Options
         let Options = {method: 'POST'};
         if (document.getElementById('BearerToken').value != '') Options['headers'] = {'Authorization': 'Bearer ' + document.getElementById('BearerToken').value};
-        if (document.getElementById('Content').value != '') Options['body'] = document.getElementById('Content').value;
+        if (document.getElementById('request_body').value != '') Options['body'] = document.getElementById('request_body').value;
 
         // call
         let FetchResult = null;
@@ -45,27 +47,47 @@ export async function Start()
     };
     document.getElementById('call_api_function').addEventListener('click', CallAPIFunction);
 
+    // websocket_url
+    const WSConnect = async (Event) =>
+    {
+        // check Enter
+        if (Event.code != 'Enter') return;
 
+        // connect
+        try {_TheWebSocket = new WebSocket(document.getElementById("websocket_url").value);} catch(Error) {return;}
 
+        // handlers
+        _TheWebSocket.onopen = () => {document.getElementById("websocket_url").readOnly = true;}
+        _TheWebSocket.onclose = () => {document.getElementById('websocket_url').readOnly = false; document.getElementById("my_message").value = ''; document.getElementById("your_message").value = '';}
 
-    
+        _TheWebSocket.onerror = () => {alert('Error')}
+        _TheWebSocket.onmessage = (Message) => {document.getElementById("your_message").value = Message.data;}
+    }
+    document.getElementById('websocket_url').addEventListener('keyup', WSConnect);
 
+    const CloseConnection = async () =>
+    {
+        // check no connection
+        if (document.getElementById('websocket_url').readOnly == false) return;
 
+        // disconnect
+        _TheWebSocket.close();
+    };
+    document.getElementById('websocket_url').addEventListener('click', CloseConnection);
 
+    // my_message
+    const SendMessage = async (Event) =>
+    {
+        // check Enter
+        if (Event.code != 'Enter') return;
 
-
-
-
-
+        // send
+        _TheWebSocket.send(document.getElementById("my_message").value);
+    }
+    document.getElementById('my_message').addEventListener('keyup', SendMessage);
 }
 
-
-
-
-
-
-
-
+let _TheWebSocket = null;
 
 
 
