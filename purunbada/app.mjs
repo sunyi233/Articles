@@ -1,34 +1,49 @@
+// export function
+///////////////////////////////////////////////////////////////////////////////////////////////////////////////
 export async function Start()
 {
     // check if not pwa
     if (window.matchMedia('(display-mode: standalone)').matches == false)
     {
         // 카톡 내부 브라우저 아 정말~~~
-        if (navigator.userAgent.indexOf('KAKAO') >= 0)
-        {
-            location.href = 'kakaotalk://web/openExternal?url=' + encodeURIComponent(location);
-            return;
-        }
+        if (navigator.userAgent.indexOf('KAKAO') >= 0) {location.href = 'kakaotalk://web/openExternal?url=' + encodeURIComponent(location); return;}
 
-        FillPageBody('landing'); return;
+        // show landing
+        FillTheBody('landing');
+        return;
     }
 
     // check if notification not granted: the permission cannot be denied I think it's a bug
-    if (Notification.permission != 'granted') {FillPageBody('notification'); return;}
+    if (Notification.permission != 'granted') {FillTheBody('notification'); return;}
 
     // check if no mobile number
-    if (localStorage.getItem('Email') == null) {FillPageBody('pairing'); return;}
+    if (localStorage.getItem('Email') == null) {FillTheBody('pairing'); return;}
 }
 
+// functions
+///////////////////////////////////////////////////////////////////////////////////////////////////////////////
 import {initializeApp} from 'https://www.gstatic.com/firebasejs/9.21.0/firebase-app.js';
 import {getMessaging, getToken} from 'https://www.gstatic.com/firebasejs/9.21.0/firebase-messaging.js';
 
-async function FillPageBody(ContentName)
+async function FillTheBody(ContentName)
 {
     window.document.body.innerHTML = await (await fetch('/contents/' + ContentName + '.html')).text();
 
     switch(ContentName)
     {
+        case 'landing':
+            if (/iP(ad|od|hone)/i.test(navigator.userAgent) == true && !!navigator.userAgent.match(/Version\/[\d\.]+.*Safari/) == true)
+            {
+                document.getElementById('iphone_install').style.display = '';
+            }
+            else
+            {
+
+
+
+
+            }
+            break;
         case 'notification':
             switch(Notification.permission) // granted case does not come to here
             {
@@ -43,7 +58,6 @@ async function FillPageBody(ContentName)
                     break;
             }
             break;
-
         case 'pairing':
             // login button
             const LoginButton = document.getElementById("login_button");
@@ -62,24 +76,6 @@ async function FillPageBody(ContentName)
             const DeviceToken = await getToken(getMessaging(initializeApp(FirebaseConfig)), {vapidKey: VapidKey});
 
             localStorage.setItem('DeviceToken', DeviceToken);
-
-
-
-
-
-              
-
-
-
-
-
-
-
-
-
-
-
-
             break;
     }
 }
@@ -97,45 +93,19 @@ async function Pair(IDToken) // adding two infos to the app
 
 
 
-    /*
-
-
-
-    alert(IDToken);
-    alert(localStorage.getItem('DeviceToken'));
-
-
-    // window.document.body.innerHTML = await (await fetch('/contents/' + ContentName + '.html')).text();
-
-
-
-
-
-
-
-    // if (localStorage.getItem('Email') == null) {FillPageBody('pairing'); return;}
-
-    */
-
-
-
 }
 
 
 
-/*
-
-const sendNotification = async () =>
-{
 
 
 
 
 
-   
-   
-};
-document.getElementById('send').addEventListener('click', sendNotification);
 
 
-*/
+
+
+
+
+
