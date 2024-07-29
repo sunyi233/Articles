@@ -1,7 +1,15 @@
 <style>
-    main {padding: 2rem; word-wrap: break-word;}
+    main {padding: 1.4rem;}
+
+    .card {border: 1px solid #ddd; border-radius: 5px; box-shadow: 0 2px 4px rgba(0,0,0,0.1); margin-bottom: 1.4rem; padding: 1rem; word-wrap: break-word;}
+
+    #request_push {background-color: #007bff; border: none; border-radius: 4px; color: white; cursor: pointer; font-size: 16px; padding: 10px 20px; width: 100%;}
 </style>
 
 <main>
-    <a id="device_token"></a>
+    <div class="card">
+        <a id="device_token"></a>
+    </div>
+
+    <button id="request_push">Push 받기</button>
 </main>

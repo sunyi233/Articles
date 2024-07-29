@@ -1,6 +1,6 @@
 // export function
 ///////////////////////////////////////////////////////////////////////////////////////////////////////////////
-export function Start()
+export async function Start()
 {
     // check if not pwa
     if (window.matchMedia('(display-mode: standalone)').matches == false)
@@ -65,7 +65,35 @@ async function FillTheBody(ContentName)
             }
             break;
         case 'main':
-            document.getElementById('device_token').innerText = localStorage.getItem('DeviceToken');
+            const DeviceToken = localStorage.getItem('DeviceToken');
+
+            document.getElementById('device_token').innerText = DeviceToken;
+
+            const request_push = async () =>
+            {
+                await GetAPIFunctionResult('SendPushNotification', null, DeviceToken);
+            };
+            document.getElementById('request_push').addEventListener('click', request_push);
             break;
     }
+}
+
+async function GetAPIFunctionResult(Function, AccessToken, Body)
+{
+    // set Endpoint
+    const Endpoint = 'https://v5drb9jmb3.execute-api.ap-northeast-2.amazonaws.com/';
+
+    // set Options
+    let Options = {method: 'POST'};
+    if (AccessToken != null) Options['headers'] = {'Authorization': 'Bearer ' + AccessToken};
+    if (Body != null) Options['body'] = Body;
+
+    // call
+    let FetchResult = null;
+    try {FetchResult = await fetch(Endpoint + Function, Options);} catch(Error) {return null;}
+    if (FetchResult.ok == false)
+        return null;
+
+    // Result
+    return FetchResult.status.toString() + ' ' + await FetchResult.text();
 }
