@@ -1,7 +1,7 @@
 export async function Start()
 {
     // get_gidt
-    const GetGIDT = async () =>
+    document.getElementById('get_gidt').onclick = () =>
     {
         // check cookie
         if (document.cookie.includes('g_state')) document.cookie = "g_state=; expires=0; path=/;";
@@ -11,11 +11,10 @@ export async function Start()
         google.accounts.id.initialize({auto_select: true, callback: (Result) => {document.getElementById('request_body').value = Result.credential;}, client_id: ClientID, itp_support: true});
 
         google.accounts.id.prompt();
-    };
-    document.getElementById('get_gidt').addEventListener('click', GetGIDT);
+    }
 
     // call_api_function
-    const CallAPIFunction = async () =>
+    document.getElementById('call_api_function').onclick = async () =>
     {
         // clear
         document.getElementById('Result').value = "";
@@ -45,7 +44,6 @@ export async function Start()
 
         document.getElementById('Result').value = Result;
     };
-    document.getElementById('call_api_function').addEventListener('click', CallAPIFunction);
 
     // websocket_url
     const WSConnect = async (Event) =>
