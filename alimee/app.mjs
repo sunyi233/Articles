@@ -26,15 +26,22 @@ import {getMessaging, getToken} from 'https://www.gstatic.com/firebasejs/9.21.0/
 
 async function FillTheBody(ContentName)
 {
+    /*
+    // show splash
+    window.document.body.innerHTML = localStorage.getItem('Splash');
+    */
+
     window.document.body.innerHTML = await (await fetch('/contents/' + ContentName + '.html')).text();
 
     switch(ContentName)
     {
         case 'landing':
+            // show guides
             if (/iP(ad|od|hone)/i.test(navigator.userAgent) == true && !!navigator.userAgent.match(/Version\/[\d\.]+.*Safari/) == true)
                 document.getElementById('iphone_install').style.display = '';
             else
                 document.getElementById('android_install').style.display = '';
+
             break;
         case 'notification':
             switch(Notification.permission) // granted case does not come to here
@@ -63,8 +70,15 @@ async function FillTheBody(ContentName)
                     document.getElementById('denied').style.display = '';
                     break;
             }
+            
             break;
         case 'main':
+            /*
+            // downlaod splash
+            if (localStorage.getItem('Splash') == null)
+                localStorage.setItem('Splash', await (await fetch('/contents/splash.html')).text());
+            */
+
             const DeviceToken = localStorage.getItem('DeviceToken');
 
             document.getElementById('device_token').innerText = DeviceToken;
@@ -74,6 +88,7 @@ async function FillTheBody(ContentName)
                 await GetAPIFunctionResult('SendPushNotification', null, DeviceToken);
             };
             document.getElementById('request_push').addEventListener('click', request_push);
+            
             break;
     }
 }
