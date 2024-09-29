@@ -1,0 +1,57 @@
+
+
+
+
+
+
+
+
+
+
+
+
+
+function GetCalendarTbody(Year, Month)
+{
+    // set things
+    const FirstDayOfWeek = 1;
+    const TheLastDayOfTheMonth = (new Date(Year, Month + 1, 0)).getDate();
+    let DayInTheWeek = FirstDayOfWeek;
+    let Result = '';
+
+    // make weeks
+    for (let ThisDate = 1; ThisDate <= TheLastDayOfTheMonth; ThisDate++)
+    {
+        // add tr if needed
+        if (DayInTheWeek == FirstDayOfWeek)
+            Result += '<tr>';
+
+        // add begin padding days if needed
+        if (ThisDate == 1)
+        {
+            let BeginPaddingDays = (new Date(Year, Month, 1)).getDay() - FirstDayOfWeek;
+            if (BeginPaddingDays < 0)
+                BeginPaddingDays += 7;
+
+            for (let i = 0; i < BeginPaddingDays; i++) {Result += '<td class="calendar_begin_padding_day"></td>'; DayInTheWeek++;}
+        }
+
+        // add day
+        Result += '<td class="calendar_day">' + ThisDate + '</td>';
+
+        // add end padding days if needed
+        if (ThisDate == TheLastDayOfTheMonth)
+        {
+            const EndPaddingDays = 6 - DayInTheWeek + FirstDayOfWeek;
+            for (let i = 0; i < EndPaddingDays; i++) {Result += '<td class="calendar_end_padding_day"></td>'; DayInTheWeek++;}
+        }
+
+        // update DayInTheWeek
+        if (DayInTheWeek == FirstDayOfWeek + 6)
+            {Result += '</tr>'; DayInTheWeek = FirstDayOfWeek;}
+        else
+            DayInTheWeek++;
+    }
+
+    return Result;
+}
