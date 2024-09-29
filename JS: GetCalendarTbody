@@ -8,13 +8,9 @@
 
 
 
-
-
-
-function GetCalendarTbody(Year, Month)
+function GetCalendarTbody(Year, Month, FirstDayOfWeek)
 {
     // set things
-    const FirstDayOfWeek = 1;
     const TheLastDayOfTheMonth = (new Date(Year, Month + 1, 0)).getDate();
     let DayInTheWeek = FirstDayOfWeek;
     let Result = '';
@@ -55,3 +51,10 @@ function GetCalendarTbody(Year, Month)
 
     return Result;
 }
+
+
+
+
+
+
+
