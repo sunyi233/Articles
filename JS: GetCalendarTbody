@@ -5,21 +5,15 @@
 
 
 
-
-
-
 function GetCalendarTbody(Year, Month, FirstDayOfWeek)
 {
-    // set things
-    const TheLastDayOfTheMonth = (new Date(Year, Month + 1, 0)).getDate();
-    let DayInTheWeek = FirstDayOfWeek;
     let Result = '';
 
-    // make weeks
-    for (let ThisDate = 1; ThisDate <= TheLastDayOfTheMonth; ThisDate++)
+    const TheLastDayOfTheMonth = (new Date(Year, Month + 1, 0)).getDate();
+    for (let ThisDate = 1, ThisDayInTheWeek = FirstDayOfWeek; ThisDate <= TheLastDayOfTheMonth; ThisDate++)
     {
         // add tr if needed
-        if (DayInTheWeek == FirstDayOfWeek)
+        if (ThisDayInTheWeek == FirstDayOfWeek)
             Result += '<tr>';
 
         // add begin padding days if needed
@@ -29,7 +23,7 @@ function GetCalendarTbody(Year, Month, FirstDayOfWeek)
             if (BeginPaddingDays < 0)
                 BeginPaddingDays += 7;
 
-            for (let i = 0; i < BeginPaddingDays; i++) {Result += '<td class="calendar_begin_padding_day"></td>'; DayInTheWeek++;}
+            for (let i = 0; i < BeginPaddingDays; i++) {Result += '<td class="calendar_begin_padding_day"></td>'; ThisDayInTheWeek++;}
         }
 
         // add day
@@ -38,19 +32,20 @@ function GetCalendarTbody(Year, Month, FirstDayOfWeek)
         // add end padding days if needed
         if (ThisDate == TheLastDayOfTheMonth)
         {
-            const EndPaddingDays = 6 - DayInTheWeek + FirstDayOfWeek;
-            for (let i = 0; i < EndPaddingDays; i++) {Result += '<td class="calendar_end_padding_day"></td>'; DayInTheWeek++;}
+            const EndPaddingDays = 6 - ThisDayInTheWeek + FirstDayOfWeek;
+            for (let i = 0; i < EndPaddingDays; i++) {Result += '<td class="calendar_end_padding_day"></td>'; ThisDayInTheWeek++;}
         }
 
-        // update DayInTheWeek
-        if (DayInTheWeek == FirstDayOfWeek + 6)
-            {Result += '</tr>'; DayInTheWeek = FirstDayOfWeek;}
+        // update ThisDayInTheWeek
+        if (ThisDayInTheWeek == FirstDayOfWeek + 6)
+            {Result += '</tr>'; ThisDayInTheWeek = FirstDayOfWeek;}
         else
-            DayInTheWeek++;
+            ThisDayInTheWeek++;
     }
 
     return Result;
 }
+
 
 
 
