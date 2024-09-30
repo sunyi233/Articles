@@ -5,46 +5,37 @@
 
 
 
+
+
+
 function GetCalendarTbody(Year, Month, FirstDayOfWeek)
 {
     let Result = '';
 
-    const TheLastDayOfTheMonth = (new Date(Year, Month + 1, 0)).getDate();
-    for (let ThisDate = 1, ThisDayInTheWeek = FirstDayOfWeek; ThisDate <= TheLastDayOfTheMonth; ThisDate++)
+    const TheLastDate = (new Date(Year, Month + 1, 0)).getDate();
+    for (let ThisDate = 1, ThisDay = FirstDayOfWeek; ThisDate <= TheLastDate; ThisDate++)
     {
         // add tr if needed
-        if (ThisDayInTheWeek == FirstDayOfWeek)
+        if (ThisDay == FirstDayOfWeek)
             Result += '<tr>';
 
         // add begin padding days if needed
         if (ThisDate == 1)
-            for (let i = 0; i < ((new Date(Year, Month, 1)).getDay() - FirstDayOfWeek + 7) % 7; i++)
-                {Result += '<td class="calendar_begin_padding_day"></td>'; ThisDayInTheWeek++;}
+            for (let i = 0; i < ((new Date(Year, Month, 1)).getDay() - FirstDayOfWeek + 7) % 7; i++, ThisDay++)
+                Result += '<td class="calendar_begin_padding_day"></td>';
 
         // add day
         Result += '<td class="calendar_day">' + ThisDate + '</td>';
 
         // add end padding days if needed
-        if (ThisDate == TheLastDayOfTheMonth)
-            for (let i = 0; i < FirstDayOfWeek - ThisDayInTheWeek + 6; i++)
-                {Result += '<td class="calendar_end_padding_day"></td>'; ThisDayInTheWeek++;}
+        if (ThisDate == TheLastDate)
+            for (let i = 0; i < FirstDayOfWeek - ThisDay + 6; i++, ThisDay++)
+                Result += '<td class="calendar_end_padding_day"></td>';
 
-        // update ThisDayInTheWeek
-        if (ThisDayInTheWeek == FirstDayOfWeek + 6) {Result += '</tr>'; ThisDayInTheWeek = FirstDayOfWeek;}
-        else ThisDayInTheWeek++;
+        // update ThisDay
+        if (ThisDay == FirstDayOfWeek + 6) {Result += '</tr>'; ThisDay = FirstDayOfWeek;}
+        else ThisDay++;
     }
 
     return Result;
 }
-
-
-
-
-
-
-
-
-
-
-
-
