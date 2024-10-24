@@ -1,6 +1,6 @@
 {
     "display": "standalone",
-    "icons": [{"src": "/contents/_icon.png", "sizes": "512x512", "type": "image/png"}],
+    "icons": [{"src": "/contents/assets/icon.png", "sizes": "512x512", "type": "image/png"}],
     "short_name": "알리미",
     "start_url": "/",
     "theme_color": "white"
