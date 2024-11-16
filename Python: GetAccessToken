@@ -22,7 +22,7 @@ def lambda_handler(event, context):
     Email = GoogleAccount['email']
     
     # check Email if allowed
-    if Email != 'ringaringoroot@gmail.com':
+    if Email != '.....@gmail.com':
         return {'statusCode': 400}
         
     # set and save AccessToken
