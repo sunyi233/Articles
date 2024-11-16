@@ -1,0 +1,33 @@
+import base64
+import boto3
+import json
+import time
+import urllib3
+import uuid
+
+def lambda_handler(event, context):
+    # set Email from GoogleAccount using Google issued id token
+    try:
+        GoogleAccount = json.loads(urllib3.PoolManager().request('GET', 'https://oauth2.googleapis.com/tokeninfo?id_token=' + event['body']).data)
+    except Exception as e:
+        return {'statusCode': 500}
+        
+    if 'error' in GoogleAccount:
+        return {'statusCode': 400}
+        
+    Email = GoogleAccount['email']
+    
+    # check Email if allowed
+    if Email != '...@gmail.com':
+        return {'statusCode': 400}
+        
+    # set and save AccessToken
+    AccessToken = str(base64.b64encode(str(uuid.uuid4()).encode("utf-8")), "utf-8")
+    
+    NewCredential = {}
+    NewCredential['AccessToken'] = AccessToken
+    NewCredential['Email'] = Email
+    NewCredential['IssueTime'] = int(time.time())
+    boto3.resource('dynamodb').Table('AdminCredentials').put_item(Item = NewCredential)
+    
+    return {'statusCode': 200, 'body': AccessToken}
