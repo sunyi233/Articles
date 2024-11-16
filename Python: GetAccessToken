@@ -6,6 +6,10 @@ import urllib3
 import uuid
 
 def lambda_handler(event, context):
+    # check body
+    if 'body' not in event:
+        return {'statusCode': 400}
+        
     # set Email from GoogleAccount using Google issued id token
     try:
         GoogleAccount = json.loads(urllib3.PoolManager().request('GET', 'https://oauth2.googleapis.com/tokeninfo?id_token=' + event['body']).data)
@@ -18,7 +22,7 @@ def lambda_handler(event, context):
     Email = GoogleAccount['email']
     
     # check Email if allowed
-    if Email != '...@gmail.com':
+    if Email != 'ringaringoroot@gmail.com':
         return {'statusCode': 400}
         
     # set and save AccessToken
