@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>달러나우</title>
+
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <link rel="manifest" href="/manifest.json">
+
+        <style>
+            body {text-align: center;}
+
+            #notification {background-color:#007bff; border:none; border-radius:5px; color:white; font-size:16px; margin-top:300px; padding:20px; width:80%;}
+        </style>
+
+        <script>
+            window.onload = () =>
+            {
+
+
+
+                navigator.serviceWorker.register('/service_worker.js');
+
+
+
+
+
+
+                switch(Notification.permission)
+                {
+                    case 'default':
+                        document.getElementById('notification').style.display = '';
+                        document.getElementById('notification').addEventListener('click', () => {Notification.requestPermission().then((Permission) => {if (Permission == 'granted') {location.reload();}});});
+                        break;
+                    case 'granted':
+                        document.getElementById('notification').style.display = 'none';
+
+
+                        document.body.innerHTML = (new Date).toLocaleString();
+
+
+                        setInterval(() => {document.body.innerHTML += "<br>" + (new Date).toLocaleString();}, 600000);
+
+                        
+
+
+
+
+
+                        //navigator.serviceWorker.controller.postMessage({type: 'SHOW_NOTIFICATION'});
+
+
+
+
+
+
+                        //setInterval(() => {navigator.serviceWorker.controller.postMessage({type: 'SHOW_NOTIFICATION'});}, 3000);
+                        break;
+                }
+            };
+        </script>
+    </head>
+    <body>
+        <button id="notification">알림 받기 허가</button>
+    </body>
+</html>
