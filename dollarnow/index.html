@@ -9,57 +9,34 @@
         <style>
             body {text-align: center;}
 
-            #notification {background-color:#007bff; border:none; border-radius:5px; color:white; font-size:16px; margin-top:300px; padding:20px; width:80%;}
+            #the_button {background-color:#007bff; border:none; border-radius:5px; color:white; font-size:16px; margin-top:300px; padding:20px; width:80%;}
         </style>
 
         <script>
             window.onload = () =>
             {
+                // check web
+                if (window.matchMedia('(display-mode: standalone)').matches == false) {document.getElementById('the_button').style.display = 'none'; return;}
 
-
-
+                // app works
                 navigator.serviceWorker.register('/service_worker.js');
 
-
-
-
-
-
+                const TheButton = document.getElementById('the_button');
                 switch(Notification.permission)
                 {
                     case 'default':
-                        document.getElementById('notification').style.display = '';
-                        document.getElementById('notification').addEventListener('click', () => {Notification.requestPermission().then((Permission) => {if (Permission == 'granted') {location.reload();}});});
+                        TheButton.innerText = '알림 받기 허가하기';
+                        TheButton.addEventListener('click', () => {Notification.requestPermission().then((Permission) => {if (Permission == 'granted') {location.reload();}});});
                         break;
                     case 'granted':
-                        document.getElementById('notification').style.display = 'none';
-
-
-                        document.body.innerHTML = (new Date).toLocaleString();
-
-
-                        setInterval(() => {document.body.innerHTML += "<br>" + (new Date).toLocaleString();}, 600000);
-
-                        
-
-
-
-
-
-                        //navigator.serviceWorker.controller.postMessage({type: 'SHOW_NOTIFICATION'});
-
-
-
-
-
-
-                        //setInterval(() => {navigator.serviceWorker.controller.postMessage({type: 'SHOW_NOTIFICATION'});}, 3000);
+                        TheButton.innerText = '알림 받기 시험하기';
+                        TheButton.addEventListener('click', () => {navigator.serviceWorker.controller.postMessage({type: 'SHOW_NOTIFICATION'});});
                         break;
                 }
             };
         </script>
     </head>
     <body>
-        <button id="notification">알림 받기 허가</button>
+        <button id="the_button"></button>
     </body>
 </html>
