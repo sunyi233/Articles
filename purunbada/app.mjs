@@ -82,14 +82,10 @@ async function FillTheBody(ContentName)
 
 async function Pair(IDToken) // adding two infos to the app
 {
-
     window.document.body.innerHTML = IDToken + '<br><br>' + localStorage.getItem('DeviceToken');
 
 
-
-
-    
-    
+ 
 
 
 
