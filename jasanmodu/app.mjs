@@ -68,20 +68,10 @@ async function FillTheBody(ContentName)
 
 
 
+            document.getElementsByTagName('main')[0].innerHTML = document.getElementById('test1').innerHTML;
 
 
-            console.log(document.head);
-
-
-            console.log(
-
-
-                document.getElementById('test1')
-
-
-            );
-
-
+            
 
 
 
