@@ -1,9 +1,0 @@
-<style>
-    #login_login_button {margin:auto; margin-top:5rem; width:fit-content;}
-</style>
-
-<div style="margin-top:5rem; text-align:center;">
-    <img src="/contents/assets/login_image.png" style="width:35%;">
-</div>
-
-<div id="login_login_button"></div>
