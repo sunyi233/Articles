@@ -6,12 +6,11 @@ export async function Start()
     // check if denied
     if (Notification.permission == 'denied') return;
 
-    // check if configured
-    const ThePushSubscription = localStorage.getItem('PushSubscription');
-    if (ThePushSubscription == null) FillTheBody('configuration');
+    // check if default
+    if (Notification.permission == 'default') {FillTheBody('configuration'); return;}
 
     // show main
-    document.body.innerHTML = ThePushSubscription;
+    FillTheBody('main');
 }
 
 async function FillTheBody(ScreenName)
@@ -21,31 +20,45 @@ async function FillTheBody(ScreenName)
     switch(ScreenName)
     {
         case 'configuration':
-            document.getElementById('configuration_permission').addEventListener('click', async () => {
+            document.getElementById('configuration_permission').addEventListener('click', async () =>
+            {
                 // check if not granted
                 if (await Notification.requestPermission() != 'granted') return;
-        
-                // notification granted so add service worker and subscrube push
+
+                // now Notification.permission is granted so we can add the service worker
                 await navigator.serviceWorker.register('/service_worker.js');
 
                 // get push subscription
-                navigator.serviceWorker.ready.then((TheRegistration) => {TheRegistration.pushManager.subscribe({userVisibleOnly:true, applicationServerKey:GetServerKey()}).then((NewSubscription) => {localStorage.setItem('PushSubscription', JSON.stringify(NewSubscription)); location.reload();});});
+                navigator.serviceWorker.ready.then((TheRegistration) => {SubscribeAndReload(TheRegistration);});
             });
+            break;
+        case 'main':
+            document.body.innerHTML += localStorage.getItem('PushSubscription');
             break;
     }
 }
 
-function GetServerKey()
+function SubscribeAndReload(ServiceWorkerRegistration)
 {
-    const VapidKey = {"subject":"mailto: <sunyi233@gmail.com>", "publicKey":"BJUBa8lq1tdUd1G7huF4Gfe_6FGYvZS61B682Qy1vwPUQpUiLtRU4XEc72VGeJavfT4eiPry2jofLK42LFFMEW4", "privateKey":"pcsKBHKv0LAG9ytbn_XdC_WfiSnfLmlNgZ4Q0kMSNdk"};
-    const base64String = VapidKey.publicKey;
+    // {"subject":"mailto: <sunyi233@gmail.com>", "publicKey":"BJUBa8lq1tdUd1G7huF4Gfe_6FGYvZS61B682Qy1vwPUQpUiLtRU4XEc72VGeJavfT4eiPry2jofLK42LFFMEW4", "privateKey":"pcsKBHKv0LAG9ytbn_XdC_WfiSnfLmlNgZ4Q0kMSNdk"}
+    // https://vapidkeys.com/
 
-    const padding = '='.repeat((4 - (base64String.length % 4)) % 4);
-    const base64 = (base64String + padding).replace(/-/g, '+').replace(/_/g, '/');
-    const rawData = window.atob(base64);
-    
-    return new Uint8Array([...rawData].map(char => char.charCodeAt(0)));
+    // set Options
+    const PublicKey = 'BJUBa8lq1tdUd1G7huF4Gfe_6FGYvZS61B682Qy1vwPUQpUiLtRU4XEc72VGeJavfT4eiPry2jofLK42LFFMEW4';
+    const padding = '='.repeat((4 - (PublicKey.length % 4)) % 4);
+    const rawData = window.atob((PublicKey + padding).replace(/-/g, '+').replace(/_/g, '/'));
+    //const ApplicationServerKey = new Uint8Array([...rawData].map(char => char.charCodeAt(0)));
+    const Options = {userVisibleOnly:true, applicationServerKey:new Uint8Array([...rawData].map(char => char.charCodeAt(0)))};
+
+    // subscribe
+    ServiceWorkerRegistration.pushManager.subscribe(Options).then((NewPushSubscription) => {localStorage.setItem('PushSubscription', JSON.stringify(NewPushSubscription)); location.reload();});
 }
+
+
+
+
+
+
 
 
 
@@ -97,6 +110,19 @@ function GetServerKey()
 
 
 /*
+function GetServerKey()
+{
+    const VapidKey = {"subject":"mailto: <sunyi233@gmail.com>", "publicKey":"BJUBa8lq1tdUd1G7huF4Gfe_6FGYvZS61B682Qy1vwPUQpUiLtRU4XEc72VGeJavfT4eiPry2jofLK42LFFMEW4", "privateKey":"pcsKBHKv0LAG9ytbn_XdC_WfiSnfLmlNgZ4Q0kMSNdk"};
+    const base64String = VapidKey.publicKey;
+
+    const padding = '='.repeat((4 - (base64String.length % 4)) % 4);
+    const base64 = (base64String + padding).replace(/-/g, '+').replace(/_/g, '/');
+    const rawData = window.atob(base64);
+    
+    return new Uint8Array([...rawData].map(char => char.charCodeAt(0)));
+}
+
+
 
 
 GetServerKey()
@@ -172,4 +198,5 @@ function urlBase64ToUint8Array(base64String) {
 
 
 
-    */
+    
+*/
