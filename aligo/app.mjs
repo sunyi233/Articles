@@ -19,17 +19,17 @@ async function FillTheBody(ScreenName)
 
     switch(ScreenName)
     {
-        case 'configuration':
+        case 'configuration': // now permission is default
             document.getElementById('configuration_permission').addEventListener('click', async () =>
             {
                 // check if not granted
-                if (await Notification.requestPermission() != 'granted') return;
+                if (await Notification.requestPermission() == 'denied') return;
 
                 // now Notification.permission is granted so we can add the service worker
                 await navigator.serviceWorker.register('/service_worker.js');
 
                 // get push subscription
-                navigator.serviceWorker.ready.then((TheRegistration) => {SubscribeAndReload(TheRegistration);});
+                navigator.serviceWorker.ready.then((TheRegistration) => {GetPushSubscription(TheRegistration).then((NewPS) => {localStorage.setItem('PushSubscription', JSON.stringify(NewPS)); location.reload();});});
             });
             break;
         case 'main':
@@ -38,20 +38,16 @@ async function FillTheBody(ScreenName)
     }
 }
 
-function SubscribeAndReload(ServiceWorkerRegistration)
+async function GetPushSubscription(ServiceWorkerRegistration)
 {
-    // {"subject":"mailto: <sunyi233@gmail.com>", "publicKey":"BJUBa8lq1tdUd1G7huF4Gfe_6FGYvZS61B682Qy1vwPUQpUiLtRU4XEc72VGeJavfT4eiPry2jofLK42LFFMEW4", "privateKey":"pcsKBHKv0LAG9ytbn_XdC_WfiSnfLmlNgZ4Q0kMSNdk"}
-    // https://vapidkeys.com/
-
     // set Options
     const PublicKey = 'BJUBa8lq1tdUd1G7huF4Gfe_6FGYvZS61B682Qy1vwPUQpUiLtRU4XEc72VGeJavfT4eiPry2jofLK42LFFMEW4';
     const padding = '='.repeat((4 - (PublicKey.length % 4)) % 4);
     const rawData = window.atob((PublicKey + padding).replace(/-/g, '+').replace(/_/g, '/'));
-    //const ApplicationServerKey = new Uint8Array([...rawData].map(char => char.charCodeAt(0)));
     const Options = {userVisibleOnly:true, applicationServerKey:new Uint8Array([...rawData].map(char => char.charCodeAt(0)))};
 
-    // subscribe
-    ServiceWorkerRegistration.pushManager.subscribe(Options).then((NewPushSubscription) => {localStorage.setItem('PushSubscription', JSON.stringify(NewPushSubscription)); location.reload();});
+    // subscribe and return the new push subscription
+    return await ServiceWorkerRegistration.pushManager.subscribe(Options);
 }
 
 
@@ -199,4 +195,38 @@ function urlBase64ToUint8Array(base64String) {
 
 
     
+*/
+/*
+
+//ServiceWorkerRegistration.pushManager.subscribe(Options).then((NewPushSubscription) => {localStorage.setItem('PushSubscription', JSON.stringify(NewPushSubscription)); location.reload();});
+//await ServiceWorkerRegistration.pushManager.subscribe(Options).then((NewPushSubscription) => {localStorage.setItem('PushSubscription', JSON.stringify(NewPushSubscription));});
+await ServiceWorkerRegistration.pushManager.subscribe(Options).then((NewPushSubscription) => {
+
+    
+
+
+    document.body.innerHTML += ' 111';
+    
+    return JSON.stringify(NewPushSubscription);
+
+
+
+
+    
+    
+    //localStorage.setItem('PushSubscription', JSON.stringify(NewPushSubscription));
+
+
+
+});
+
+
+
+
+
+document.body.innerHTML += ' 222';
+
+document.body.innerHTML += ' 111';
+
+
 */
