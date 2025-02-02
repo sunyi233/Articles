@@ -33,7 +33,11 @@ async function FillTheBody(ScreenName)
             });
             break;
         case 'main':
-            document.body.innerHTML += localStorage.getItem('PushSubscription');
+            const PushSubscription = localStorage.getItem('PushSubscription');
+            document.getElementById('main_push_subscription').innerText = PushSubscription;
+            document.getElementById('main_copy').addEventListener('click', async () => {navigator.clipboard.writeText(PushSubscription);});
+
+            document.getElementById('main_test').addEventListener('click', async () => {navigator.serviceWorker.controller.postMessage(document.getElementById('main_test_messae').value);});
             break;
     }
 }
