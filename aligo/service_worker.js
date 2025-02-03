@@ -1,7 +1,6 @@
 self.onmessage = (Event) => {self.registration.showNotification('', {body:Event.data});};
 
-self.onpush = (Event) => {self.registration.showNotification('', {body:Event.data});};
-
+self.onpush = (Event) => {const Data = Event.data.json(); self.registration.showNotification(Data.title, {body:Data.body});};
 
 
 
@@ -44,6 +43,16 @@ self.onpush = (Event) => {self.registration.showNotification('', {body:Event.dat
 
 /*
 
+self.addEventListener("push", event => {
+  const data = event.data.json();
+  self.registration.showNotification(data.title, {
+    body: data.body,
+    icon: "/icon.png"
+  });
+});
+
+
+
 self.addEventListener('push', (event) => {
     const options = {
       body: 'This is a push notification!',
@@ -56,27 +65,15 @@ self.addEventListener('push', (event) => {
     );
   });
 
-
-
-  
+ 
   
   self.addEventListener('message', (Event) => {
-
-
-
 
 
     Event.source.postMessage("Hi client");
 
 
     console.log(Event.data);
-
-
-
-
-
-
-
 
 
     if (event.data && event.data.type == 'SHOW_NOTIFICATION')
