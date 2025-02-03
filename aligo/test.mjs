@@ -3,7 +3,7 @@
 // https://vapidkeys.com/
 */
 
-import webpush from "web-push"
+import webpush from 'web-push'
 
 // set webpush
 webpush.setVapidDetails('mailto:sunyi233@gmail.com', 'BJUBa8lq1tdUd1G7huF4Gfe_6FGYvZS61B682Qy1vwPUQpUiLtRU4XEc72VGeJavfT4eiPry2jofLK42LFFMEW4', 'pcsKBHKv0LAG9ytbn_XdC_WfiSnfLmlNgZ4Q0kMSNdk');
