@@ -3,10 +3,9 @@ export async function Start()
     // check if browser
     if (window.matchMedia('(display-mode: standalone)').matches != true) {FillTheBody('landing'); return;}
 
-    // check if denied
-    if (Notification.permission == 'denied') return;
-
-    // check if default
+    // check if configurations needed
+    // Now configurations is checked if notification is allowed
+    // here denied can be considered as default which might be a bug
     if (Notification.permission == 'default') {FillTheBody('configuration'); return;}
 
     // show main
@@ -19,11 +18,11 @@ async function FillTheBody(ScreenName)
 
     switch(ScreenName)
     {
-        case 'configuration': // now permission is default
+        case 'configuration': // now permission is default or fault default i.e. denied
             document.getElementById('configuration_permission').addEventListener('click', async () =>
             {
-                // check if not granted
-                if (await Notification.requestPermission() == 'denied') return;
+                // if denied go out
+                if (await Notification.requestPermission() == 'denied') {alert('알림을 받을 수 없어 앱을 사용할 수 없습니다. 알림 설정을 다시 하려면 앱을 다시 설치해 주세요.'); return}
 
                 // now Notification.permission is granted so we can add the service worker
                 await navigator.serviceWorker.register('/service_worker.js');
