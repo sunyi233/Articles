@@ -1,12 +1,12 @@
 export async function Start()
 {
     // check if browser
-    if (window.matchMedia('(display-mode: standalone)').matches != true) {FillTheBody('landing'); return;}
+    if (window.matchMedia('(display-mode:standalone)').matches != true) {FillTheBody('landing'); return;}
 
     // check if configurations needed
     // Now configurations is checked if notification is allowed
     // here denied can be considered as default which might be a bug
-    if (Notification.permission == 'default') {FillTheBody('configuration'); return;}
+    if (Notification.permission != 'granted') {FillTheBody('configuration'); return;}
 
     // show main
     FillTheBody('main');
