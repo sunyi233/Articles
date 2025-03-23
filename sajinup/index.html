@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>사진업</title>
+
+        <style>
+            body {font-family:Arial, sans-serif; font-size:16px; margin:0rem;}
+
+            #photo {height:auto; width:100%; margin-bottom:0.4rem; vertical-align:middle;}
+            #upload {background-color:#4CAF50; border:none; border-radius:0.2rem; color:white; display:inline-block; font-size:1rem; padding:1rem 0rem; text-align:center; text-decoration:none; width:100%;}
+        </style>
+        <script>
+            window.onload = () =>
+            {
+                document.getElementById('photo').onclick = () =>
+                {
+                    const PhotoInput = document.createElement('input');
+                    PhotoInput.type = 'file';
+                    PhotoInput.accept = 'image/*';
+                    PhotoInput.onchange = () =>
+                    {
+                        const PhotoFR = new FileReader();
+                        PhotoFR.onload = () => {document.getElementById('photo').src = PhotoFR.result; PhotoInput.remove();};
+
+                        PhotoFR.readAsDataURL(PhotoInput.files[0]);
+                    };
+
+                    PhotoInput.click();
+                };
+
+                document.getElementById('upload').onclick = () =>
+                {
+                    if (document.getElementById('photo').src == '') return;
+
+
+
+
+                    alert(document.getElementById('photo').src);
+
+
+
+
+
+                }
+            }
+        </script>
+
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    </head>
+    <body style="padding:0.4rem;">
+        <img id="photo" alt="클릭해서 사진을 고르세요.">
+
+        <button id="upload">사진 올리기</button>
+    </body>
+</html>
