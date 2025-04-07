@@ -1,0 +1,11 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>Simple Page</title>
+
+        <style>@import url("/web.css");</style>
+        <script>window.onload = async () => {document.body.innerHTML = await (await fetch('/' + window.location.search.split('?')[1])).text();};</script>
+    </head>
+    <body>
+    </body>
+</html>
