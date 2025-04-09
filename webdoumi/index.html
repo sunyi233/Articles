@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>웹 도우미</title>
+
+        <style>
+            @import url('https://fonts.googleapis.com/css?family=Nanum Gothic');
+
+            body {font-family:'Nanum Gothic'; font-size:16px; margin:0rem;}
+            header {background-color:aliceblue; display:flex; justify-content:space-evenly; margin-bottom:2rem; padding:1.4rem 5rem;}
+            h3 {margin:0rem; text-wrap-mode:nowrap;}
+            input {border:1px solid #ccc; border-radius:0.2rem; box-sizing:border-box; font-family:inherit; font-size:inherit; padding:0.5rem; width:100%;}
+            main {align-items:center; display:grid; gap:1rem; grid-template-columns:min-content auto; margin:auto; width:70%;}
+            textarea {border:1px solid #ccc; border-radius:0.2rem; box-sizing:border-box; font-family:inherit; font-size:inherit; height:8rem; line-height:1.4; padding:0.5rem; resize:none; width:100%;}
+
+            .menu {cursor:pointer; color:black;}
+            .menu_selected {cursor:pointer; color:coral;}
+            .simple_button {background-color:#f8f9fa; border:1px solid #ccc; border-radius:0.2rem; box-sizing:border-box; cursor:pointer; font-family:inherit; font-size:0.8rem; padding:0.3rem;}
+            .trigger_button {background-color:forestgreen; border:1px solid #ccc; border-radius:0.2rem; box-sizing:border-box; color:white; cursor:pointer; font-family:inherit; font-size:inherit; font-weight: bold; margin:auto; padding:1rem; width:100%;}
+        </style>
+        <script>window.onload = async () => {await (await import('/app.mjs')).Start();}</script>
+    </head>
+    <body>
+        <header>
+            <h3 id="http_api">AWS HTTP API</h3>
+            <h3 id="websocket_api">AWS WebSocket API</h3>
+            <h3 id="send_push">Send push</h3>
+        </header>
+        <main>
+        </main>
+
+        <template id="http_api_content">
+            <h3>Endpoint</h3><input id="api_endpoint" type="text" placeholder="Required">
+            <h3>Function</h3><input id="api_function" type="text" placeholder="Required">
+            <h3>Access token</h3><input id="api_access_token" type="text">
+            <h3>Body</h3><div><textarea id="api_body"></textarea><div style="text-align:right;"><button class="simple_button">Insert Google id token</button></div></div>
+
+            <a></a><button id="call" class="trigger_button">Call</button>
+            
+            <h3>Status code</h3><input id="api_status_code" type="text" readonly>
+            <h3>Body</h3><textarea id="api_result_body" readonly></textarea>
+        </template>
+        <template id="websocket_api_content">
+
+
+
+            websocket_api_content
+
+
+
+
+        </template>
+        <template id="send_push_content">
+            <h3>Vapid key</h3><textarea id="push_vapid_key" placeholder="Required"></textarea>
+            <h3>Push subscription</h3><textarea id="push_ps" placeholder="Required"></textarea>
+            <h3>Title</h3><input id="push_title" type="text" placeholder="Required">
+            <h3>Body</h3><input id="push_body" type="text" placeholder="Required">
+
+            <a></a><button id="send" class="trigger_button">Request</button>
+
+
+
+
+
+        </template>
+    </body>
+</html>
