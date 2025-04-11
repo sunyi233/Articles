@@ -51,17 +51,15 @@
 
         </template>
         <template id="send_push_content">
-            <h3>Vapid key</h3><textarea id="push_vapid_key" placeholder="Required"></textarea>
+            <h3>Email</h3><input id="push_email" type="text" placeholder="Required">
+            <h3>Vapid public key</h3><input id="push_public_key" type="text" placeholder="Required">
+            <h3>Vapid private key</h3><input id="push_private_key" type="text" placeholder="Required">
+
             <h3>Push subscription</h3><textarea id="push_ps" placeholder="Required"></textarea>
             <h3>Title</h3><input id="push_title" type="text" placeholder="Required">
             <h3>Body</h3><input id="push_body" type="text" placeholder="Required">
 
             <a></a><button id="send" class="trigger_button">Request</button>
-
-
-
-
-
         </template>
     </body>
 </html>

@@ -45,13 +45,18 @@ export async function Start()
                 document.getElementById('send').onclick = async () =>
                 {
                     // set things
-                    if (document.getElementById('push_vapid_key').value.trim() == '') return;
+                    // {"subject":"mailto: <sunyi233@gmail.com>", "publicKey":"BJUBa8lq1tdUd1G7huF4Gfe_6FGYvZS61B682Qy1vwPUQpUiLtRU4XEc72VGeJavfT4eiPry2jofLK42LFFMEW4", "privateKey":"pcsKBHKv0LAG9ytbn_XdC_WfiSnfLmlNgZ4Q0kMSNdk"}
+                    if (document.getElementById('push_email').value.trim() == '') return;
+                    if (document.getElementById('push_public_key').value.trim() == '') return;
+                    if (document.getElementById('push_private_key').value.trim() == '') return;
                     if (document.getElementById('push_ps').value.trim() == '') return;
                     if (document.getElementById('push_title').value.trim() == '') return;
                     if (document.getElementById('push_body').value.trim() == '') return;
 
                     const PushCommand = {};
-                    PushCommand['VapidKey'] = document.getElementById('push_vapid_key').value;
+                    PushCommand['Email'] = document.getElementById('push_email').value;
+                    PushCommand['PublicKey'] = document.getElementById('push_public_key').value;
+                    PushCommand['PrivateKey'] = document.getElementById('push_private_key').value;
                     PushCommand['PushSubscription'] = document.getElementById('push_ps').value;
                     PushCommand['Title'] = document.getElementById('push_title').value;
                     PushCommand['Body'] = document.getElementById('push_body').value;
@@ -60,9 +65,7 @@ export async function Start()
                     const Options = {method:'POST', body:JSON.stringify(PushCommand)};
 
                     // call
-                    fetch(ApiUrl, Options)
-                    .then((Result) => {alert(Result.status);})
-                    .catch((Error) => {return;});
+                    fetch(ApiUrl, Options).then((Result) => {Result.text().then((ResultText) => {alert(ResultText);});}).catch((Error) => {return;});
                 };
                 break;
         }
@@ -70,7 +73,6 @@ export async function Start()
 
     // show the first menu
     document.getElementById('http_api').click();
-    //document.getElementById('send_push').click();
 }
 
 
