@@ -1,7 +1,7 @@
 async function GetAPIFunctionResult(FunctionName, Body)
 {
     // set things
-    const Endpoint = 'https://4w4pplxx5f.execute-api.ap-northeast-2.amazonaws.com/'; 
+    const Endpoint = 'https://~~~~~~~~~.execute-api.ap-northeast-2.amazonaws.com/'; 
     let FetchResult = null;
 
     // set Access Token
