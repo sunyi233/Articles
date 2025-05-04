@@ -8,7 +8,7 @@ async function GetAPIFunctionResult(FunctionName, Body)
     let AccessToken = localStorage.getItem('AccessToken');
     if(AccessToken == null)
     {
-        // set fetch result
+        // set FetchResult
         try {FetchResult = await fetch(Endpoint + 'GetAccessToken', {method:'POST', body:localStorage.getItem('IDToken')});}
         catch(Error) {console.log(Error); return null;}
         if (FetchResult.ok== false) return null;
