@@ -26,5 +26,15 @@ async function GetAPIFunctionResult(FunctionName, Body)
     try {FetchResult = await fetch(Endpoint + FunctionName, Options);}
     catch(Error) {console.log(Error); return null;}
 
+    // check status
+    if (FetchResult.status == 403)
+    {
+
+
+
+
+        FetchResult = 'dfgbsdfg';
+    }
+    
     return FetchResult;
 }
