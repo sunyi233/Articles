@@ -15,16 +15,6 @@ def lambda_handler(event, context):
                         InsertedInvoice = ThisRecord['dynamodb']['NewImage']
 
 
-                        # buyers
-                        NewBuyer = {}
-
-                        NewBuyer['PhoneNumber'] = InsertedInvoice['BuyerPhone']['S']
-                        NewBuyer['Name'] = InsertedInvoice['BuyerName']['S']
-                        NewBuyer['Status'] = '없음'
-                        NewBuyer['Category'] = []
-                        NewBuyer['Type'] = '없음'
-                        NewBuyer['LFD'] = NewBuyer['PhoneNumber'].split('-')[2]
-
-                        _BuyersTable.put_item(Item = NewBuyer)
+                   
 
     return
