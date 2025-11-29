@@ -6,7 +6,7 @@ export async function Start()
 async function GetAPIFunctionResult(Function, Body)
 {
     // set things
-    const Endpoint = 'https://1w03l2z3v0.execute-api.ap-northeast-2.amazonaws.com/';
+    const Endpoint = 'https://~~~~~~.amazonaws.com/';
     let FetchResult = null;
 
     // set Access Token
