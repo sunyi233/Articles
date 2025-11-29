@@ -1,0 +1,6 @@
+@import url('https://fonts.googleapis.com/css2?family=Asta+Sans:wght@300..800&family=Chiron+GoRound+TC:wght@200..900&display=swap');
+@import url('https://fonts.googleapis.com/icon?family=Material+Icons+Round');
+
+* {box-sizing:border-box; margin:0px; padding:0px;}
+body {font-family:'Chiron GoRound TC', sans-serif; font-optical-sizing:auto; font-style:normal; font-weight:300; visibility:hidden;}
+html {font-size:16px;}

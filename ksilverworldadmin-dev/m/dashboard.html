@@ -1,0 +1,77 @@
+<style>
+    @import url('/m/web.css');
+
+    body {display:flex; height:100vh;}
+    h1 {background:linear-gradient(135deg, #667eea 0%, #764ba2 100%); background-clip:text;  font-size:24px; font-weight:700; margin:auto; padding:0px 0px;}
+    nav {background:linear-gradient(180deg, #1e293b 0%, #0f172a 100%); color:white; display:flex; flex-direction:column; transition:transform 0.3s ease; width:14rem;}
+
+    .menu-section {margin-bottom:0.5rem;}
+    .menu-section.collapsed .menu-section-title::after {transform:rotate(-90deg);}
+    .menu-section.collapsed .menu-section-items {max-height:0rem;}
+    .menu-section-title {align-items:center; color:#cbd5e1; cursor:pointer; display:flex; font-weight:600; justify-content:space-between; letter-spacing:1px; padding:1rem; text-transform:uppercase; transition:all 0.3s;}
+    .menu-section-title:hover {color:#cbd5e1;}
+    .menu-section-title::after {transition:transform 0.3s;}
+    .menu-section-items { max-height: 500px; overflow: hidden; transition: max-height 0.3s ease; }
+    .menu-item {align-items:center; border-left:3px solid transparent; color:white; cursor:pointer; display:flex; gap:0.5rem; padding:0.5rem 0.5rem; text-decoration:none; transition:all 0.3s;}
+    .menu-item:hover { background: rgba(255, 255, 255, 0.05); color: white; }
+    .menu-item.active { background: rgba(139, 92, 246, 0.15); color: white; border-left-color: #8b5cf6; }
+    .menu-icon { width: 20px; height: 20px; display: flex; align-items: center; justify-content: center; }
+
+    #dashboard_sidebar_email {color:silver;}
+    #dashboard_sidebar_idenity {border-bottom:1px solid rgba(255, 255, 255, 0.1); padding:1rem 0rem; text-align:center;}
+</style>
+
+<nav>
+    <div id="dashboard_sidebar_idenity">
+        <h1>실버월드 운영</h1>
+        <div id="dashboard_sidebar_email"></div>
+    </div>
+
+    <div class="menu-section collapsed">
+        <div class="menu-section-title">실버콕 통계</div>
+        <div class="menu-section-items">
+            <a class="menu-item"><span class="menu-icon">📊</span><span>종합 통계</span></a>
+            <a class="menu-item"><span class="menu-icon">📊</span><span>지사별 통계</span></a>
+            <a class="menu-item"><span class="menu-icon">📊</span><span>기관 통계</span></a>
+            <a class="menu-item"><span class="menu-icon">📊</span><span>반별 통계</span></a>
+            <a class="menu-item"><span class="menu-icon">📊</span><span>과목별 사용량</span></a>
+            <a class="menu-item"><span class="menu-icon">📊</span><span>어르신별 사용량</span></a>
+            <a class="menu-item"><span class="menu-icon">📊</span><span>카테고리 통계</span></a>
+        </div>
+    </div>
+
+    <div class="menu-section collapsed">
+        <div class="menu-section-title">실버콕 운영</div>
+        <div class="menu-section-items">
+            <a class="menu-item"><span class="menu-icon">📦</span><span>지사 관리</span></a>
+            <a class="menu-item"><span class="menu-icon">📦</span><span>기관 관리</span></a>
+            <a class="menu-item"><span class="menu-icon">👥</span><span>회원 관리</span></a>
+            <a class="menu-item"><span class="menu-icon">🛒</span><span>메일 발송</span></a>
+            <a class="menu-item"><span class="menu-icon">🛒</span><span>분반 관리</span></a>
+            <a class="menu-item"><span class="menu-icon">👥</span><span>어르신 관리</span></a>
+        </div>
+    </div>
+
+    <div class="menu-section collapsed">
+        <div class="menu-section-title">실버콕 콘텐츠</div>
+        <div class="menu-section-items">
+            <a class="menu-item"><span class="menu-icon">📦</span><span>과목 관리</span></a>
+            <a class="menu-item"><span class="menu-icon">📦</span><span>과정 관리</span></a>
+            <a class="menu-item"><span class="menu-icon">👥</span><span>단계 관리</span></a>
+            <a class="menu-item"><span class="menu-icon">🛒</span><span>콘텐츠 관리</span></a>
+            <a class="menu-item"><span class="menu-icon">🛒</span><span>콘텐츠 일정 관리</span></a>
+            <a class="menu-item"><span class="menu-icon">👥</span><span>계획안 관리</span></a>
+        </div>
+    </div>
+
+    <div class="menu-section collapsed">
+        <div class="menu-section-title">실버월드 홈페이지</div>
+        <div class="menu-section-items">
+            <a class="menu-item"><span class="menu-icon">📦</span><span>공지 사항</span></a>
+            <a class="menu-item"><span class="menu-icon">📦</span><span>알림 팝업</span></a>
+            <a class="menu-item"><span class="menu-icon">👥</span><span>게시판 관리</span></a>
+        </div>
+    </div>
+</nav>
+<main>
+</main>
