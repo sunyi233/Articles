@@ -3,43 +3,23 @@
     <head>
         <title>Admin Seoul</title>
 
+        <style>@import url('/m/_web.css');</style>
         <script>window.onload = async () => {await (await import('/web.mjs')).Start();}</script>
+
+        <template id="list-box">
+            <table><thead></thead><tbody></tbody></table>
+
+            <style>
+                @import url('/m/_web.css');
+
+                table {border:1px #a39485 solid; border-collapse:collapse; border-radius:5px; font-size:1rem; overflow:hidden; width:100%;}
+                tbody {cursor:pointer;}
+                td {border-bottom:1px solid rgba(0,0,0,.1); background:#fff; padding:1rem; vertical-align:middle;}
+                th {padding:1rem; text-align:center; vertical-align:middle;}  
+                thead {color:#fff; background:#73685d; font-weight:bold;}
+            </style>
+        </template>
     </head>
     <body>
-
-
-
-
-
-
-        <my-box></my-box>
-
-
-
-                <my-box></my-box>
-
-
-
-                
-
     </body>
 </html>
-
-<template id="my-box">
-
-    <style>
-        .sample {color:rgb(145, 167, 49);}
-    </style>
-
-
-    <div id="test" class="sample">
-
-
-        hiyglyig
-    </div>
-
-
-
-
-    uigligliu
-</template>
