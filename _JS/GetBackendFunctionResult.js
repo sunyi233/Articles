@@ -5,7 +5,16 @@ async function GetBackendFunctionResult(Name, Body)
 
     // set Options
     let Options = {method:'POST'};
-    if (Body != null) Options['body'] = Body;
+    if (Body != null)
+         Options['body'] = Body;
+    if (Name != 'GetAccessToken')
+    {
+        // set AccessToken
+        const AccessToken = localStorage.getItem('AccessToken');
+        if (AccessToken == null) return null;
+
+        Options['headers'] = {'authorization':'Bearer ' + AccessToken};
+    }
 
     // call
     const Result = await fetch(Endpoint + Name, Options).catch((Error) => {return null;});
