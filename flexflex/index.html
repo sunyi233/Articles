@@ -1,0 +1,95 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>flex flex</title>
+
+        <style>
+            @import url('https://fonts.googleapis.com/css2?family=Asta+Sans:wght@300..800&family=Chiron+GoRound+TC:wght@200..900&family=Nanum+Gothic&display=swap');
+
+            html {font-size:16px;}
+            body {font-family:"Nanum Gothic", sans-serif; font-style:normal; font-weight:400; margin:0px; padding:0px;}
+        </style>
+        <script>
+            window.onload = async () => {
+
+
+
+
+                const Result = await GetBackendFunctionResult('GetAdvertisements', null);
+                Object.entries(await Result.json()).forEach(([key, value]) => {console.log(`${key}: ${value}`);});
+
+
+
+
+
+            };
+
+            async function GetBackendFunctionResult(Name, Body)
+            {
+                // set Endpoint
+                const Endpoint = 'https://8xkpzm48h4.execute-api.ap-northeast-2.amazonaws.com/';
+
+                // set Options
+                let Options = {method:'POST'};
+                if (Body != null)
+                    Options['body'] = Body;
+
+                // call
+                const Result = await fetch(Endpoint + Name, Options).catch((Error) => {return null;});
+                if (Result.ok == false) return null;
+
+                return Result;
+            }
+        </script>
+
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    </head>
+    <body>
+        <header>
+
+            aergfsrtgh
+        </header>
+        <main>
+
+
+
+
+
+            ergseragera
+
+
+
+
+            overflow-y:auto;
+
+
+
+            flex:1;
+
+        </main>
+        <footer>
+
+            ergser height:100vh; flex:1;
+
+        </footer>
+
+        <style>
+
+
+
+
+
+            body {display:flex; flex-direction:column; height:100svh;        background-color:whitesmoke;}
+
+
+            header {background-color:yellow;}
+            main {background-color:blanchedalmond;      flex:1;   }
+            footer {background-color:cadetblue;}
+
+
+
+
+
+        </style>
+    </body>
+</html>
