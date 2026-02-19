@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <link rel="icon" href="/m/favicon.svg" type="image/svg+xml">
+        <title>Webdogu</title>
+        
+        <style>
+            a {font-size:1.2rem; text-wrap:nowrap;       color:gray;}
+            body {display:flex; font-family:Tahoma; height:100vh; margin:0rem;}
+            html {font-size:16px;}
+            input {border:1px solid #ccc; border-radius:0.2rem; box-sizing:border-box; font-family:inherit; font-size:inherit; padding:0.5rem; width:100%;}
+            textarea {border:1px solid #ccc; border-radius:0.2rem; box-sizing:border-box; font-family:inherit; font-size:inherit; line-height:1.4; padding:0.5rem; resize:none; width:100%;}
+
+            #menu_aws_http_api_body {height:8rem;}
+            #sidebar {border-right:1px solid #eee; box-sizing:border-box; height:100%; padding:1rem; width:20rem;}
+
+            .action_button {background-color:forestgreen; border:1px solid #ccc; border-radius:0.2rem; box-sizing:border-box; color:white; cursor:pointer; font-family:inherit; font-size:inherit; padding:1rem; width:100%;}
+            .menu {background:transparent; border:0rem; color:#222; cursor:pointer; display:block; font-family:inherit; font-size:1.2rem; margin-bottom:1rem; padding:0rem; text-align:left; width:100%;}
+            .menu_aws_http_api {align-items:center; display:grid; gap:1rem; grid-template-columns:min-content 1fr; grid-template-rows:repeat(7, min-content); padding: 1rem; width:100%;}
+            .menu_aws_web_socket_api {color:red;      width:100%;}
+            .small_button {background-color:#f8f9fa; border:1px solid #ccc; border-radius:0.2rem; box-sizing:border-box; cursor:pointer; font-family:inherit; font-size:0.8rem; padding:0.3rem;}
+        </style>
+        <script src="https://accounts.google.com/gsi/client" async defer></script>
+        <script>window.onload = async () => {await (await import('/app.mjs')).Start();}</script>
+    </head>
+    <body>
+        <div id="sidebar">
+            <button id="menu_aws_http_api" class="menu">AWS http api test</button>
+            <button id="menu_aws_web_socket_api" class="menu">AWS web socket api test</button>
+        </div>
+        <div id="pannel">
+        </div>
+
+        <template id="menu_aws_http_api_content">
+            <a>Endpoint</a><input id="menu_aws_http_api_endpoint" type="text" placeholder="Required">
+            <a>Function</a><input id="menu_aws_http_api_function" type="text" placeholder="Required">
+            <a>Access token</a><input id="menu_aws_http_api_access_token" type="text">
+            <a>Body</a><div><textarea id="menu_aws_http_api_body"></textarea><div style="text-align:right;"><button id="menu_aws_http_google_login" class="small_button">Insert Google id token</button></div></div>
+
+            <a></a><button id="menu_aws_http_api_call" class="action_button">Call</button>
+            
+            <a>Status code</a><input id="menu_aws_http_api_status_code" type="text" readonly>
+            <a>Body</a><textarea id="menu_aws_http_api_result_body" style="height:8rem;" readonly></textarea>
+        </template>
+        <template id="menu_aws_web_socket_api_content">
+
+
+
+
+
+            lygiugiuhiu
+        </template>
+
+
+
+
+
+
+
+        
+    </body>
+</html>
