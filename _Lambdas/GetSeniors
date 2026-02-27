@@ -1,0 +1,9 @@
+import boto3
+import simplejson
+
+_DynamoDB = boto3.resource('dynamodb')
+
+def lambda_handler(event, context):
+    DDBResult = _DynamoDB.Table('Items').query(KeyConditionExpression=boto3.dynamodb.conditions.Key('Category').eq('Senior'), FilterExpression=boto3.dynamodb.conditions.Attr('ClientID').eq(event['body']))
+
+    return {'statusCode':200, 'body':simplejson.dumps(DDBResult['Items'])}
